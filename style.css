@@ -1,9 +1,10 @@
 :root {
-  --ivory: #f6f1e9;
-  --cream: #fcfaf5;
-  --gold: #c9b28c;
-  --text: #5f564b;
-  --border: #e4dacb;
+  --ivory: #f5f0e6;
+  --cream: #fbf9f4;
+  --gold: #bfa37a;
+  --text-dark: #524a41;
+  --text-light: #8a8073;
+  --border-color: #e5decb;
 }
 
 * {
@@ -17,22 +18,23 @@ html {
 }
 
 body {
-  background: #d7cfc7;
-  color: var(--text);
+  background: #d4cbc2;
+  color: var(--text-dark);
+  font-family: 'Times New Roman', Times, serif;
   overflow-x: hidden;
-  font-family: Arial, sans-serif;
 }
 
-/* MAIN APP WINDOW CORE DIMENSIONS */
+/* CONTAINER APP HOLDER FOR MOBILE SCREEN PROPORTIONS */
 #invitation-content {
   width: 100%;
   max-width: 430px;
   margin: 0 auto;
   background: var(--cream);
   min-height: 100vh;
+  position: relative;
 }
 
-/* FIXED FULL-VIEWPORT SPLASH SCREEN OVERLAY */
+/* FIXED FULL-SCREEN OVERLAY FOR SHUTTER DOORS */
 #splash-screen {
   position: fixed;
   top: 0;
@@ -43,7 +45,7 @@ body {
   height: 100vh;
   z-index: 9999;
   overflow: hidden;
-  perspective: 1500px; /* Provides 3D depth for the swing rotation effect */
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 .door-container {
@@ -52,215 +54,460 @@ body {
   height: 100%;
 }
 
-/* SYNCHRONIZED PANEL SYSTEM */
+/* SLIDING DOOR ELEMENT BEHAVIORS */
 .door {
   position: absolute;
   top: 0;
   width: 50%;
   height: 100%;
-  background: linear-gradient(135deg, #f9f5ef, #ebe2d6);
-  box-shadow: inset 0 0 30px rgba(0, 0, 0, 0.05);
+  background-color: #ede6db;
+  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.05);
+  transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
   will-change: transform;
 }
 
 .left-door {
   left: 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.04);
+  border-right: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 .right-door {
   right: 0;
-  border-left: 1px solid rgba(0, 0, 0, 0.04);
+  border-left: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* EMBOSSED LACE SHADOW MOCKUP */
-.floral-pattern {
+/* SHUTTER SLIDE INTERACTION TRIGGER TARGETS */
+#splash-screen.open-active .left-door {
+  transform: translateX(-100%);
+}
+
+#splash-screen.open-active .right-door {
+  transform: translateX(100%);
+}
+
+/* LACE OVERLAY ASSETS GRAPHICS MOCKUP */
+.lace-overlay {
   position: absolute;
   inset: 0;
-  background:
-      radial-gradient(circle at 20% 20%, rgba(255,255,255,.8), transparent 35%),
-      radial-gradient(circle at 75% 40%, rgba(255,255,255,.6), transparent 30%),
-      radial-gradient(circle at 30% 85%, rgba(255,255,255,.7), transparent 30%);
-  opacity: 0.8;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.9;
 }
 
-/* CENTRAL OVAL RESIN LATCH EMBLEM */
+.left-lace { background-image: url('left-lace.png'); background-position: left center; }
+.right-lace { background-image: url('right-lace.png'); background-position: right center; }
+
+/* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
 .door-latch {
   position: absolute;
-  width: 70px;
-  height: 95px;
+  width: 76px;
+  height: 98px;
   left: 50%;
-  top: 48%;
+  top: 50%;
   transform: translate(-50%, -50%);
-  border-radius: 50%;
-  background: #faf6f0;
-  border: 2px solid #d3c1a6;
-  z-index: 10;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+  z-index: 30;
+  cursor: pointer;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
 }
 
-.latch-ornament {
-  width: 28px;
-  height: 45px;
-  border-radius: 50%;
-  border: 1px dashed #d3c1a6;
+.latch-content {
+  width: 100%;
+  height: 100%;
+  background: #fdfbfa;
+  border: 2px solid var(--border-color);
+  border-radius: 50% / 42%;
+  box-shadow: 0 8px 24px rgba(82, 74, 65, 0.12);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 6px;
+}
+
+.latch-frame {
+  width: 100%;
+  height: 100%;
+  border: 1px dashed var(--gold);
+  border-radius: 50% / 42%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.latch-artwork {
+  width: 80%;
+  height: 80%;
+  object-fit: contain;
+}
+
+#splash-screen.open-active .door-latch {
+  opacity: 0;
+  transform: translate(-50%, -50%) scale(0.7);
+  pointer-events: none;
+}
+
+/* SCROLL PROMPT ANIMATION MECHANICS */
+.scroll-hint-btn {
   position: absolute;
+  left: 50%;
+  bottom: 80px;
+  transform: translateX(-50%);
+  color: var(--text-light);
+  font-size: 11px;
+  letter-spacing: 4px;
+  font-family: sans-serif;
+  pointer-events: none;
+  z-index: 20;
+  animation: floatHint 2.5s infinite ease-in-out;
+}
+
+@keyframes floatHint {
+  0%, 100% { opacity: 0.4; transform: translate(-50%, 0); }
+  50% { opacity: 1; transform: translate(-50%, -6px); }
+}
+
+#splash-screen.open-active .scroll-hint-btn {
+  opacity: 0;
+}
+
+/* FLOATING MUSIC WIDGET MECHANICS */
+#music-toggle {
+  position: absolute;
+  right: 24px;
+  bottom: 24px;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 1px solid var(--border-color);
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(4px);
+  font-size: 16px;
+  color: var(--text-dark);
+  cursor: pointer;
+  z-index: 99;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SECTION STRUCTURE AND ARCHE PROFILE DESIGNS */
+.hero-section, .calendar-section, .event-details, 
+.countdown-section, .location-section, .gallery-section, .closing-section {
+  min-height: 100vh;
+  padding: 40px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.arched-frame {
+  width: 100%;
+  min-height: calc(100vh - 80px);
+  background: white;
+  border: 1px solid var(--border-color);
+  border-top-left-radius: 200px;
+  border-top-right-radius: 200px;
+  text-align: center;
+  padding: 75px 24px 40px;
+  box-shadow: 0 12px 35px rgba(82, 74, 65, 0.03);
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/* COMPONENT ACCENTS TYPOGRAPHY */
+.section-badge {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.invitation-label {
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 11px;
+  color: var(--text-light);
+  margin-bottom: 20px;
+}
+
+.couple-names {
+  font-size: 40px;
+  font-weight: 200;
+  color: var(--text-dark);
+  margin-bottom: 25px;
+  letter-spacing: 1px;
+}
+
+.scripture-verse {
+  font-style: italic;
+  font-size: 14px;
+  line-height: 1.8;
+  color: var(--text-light);
+  max-width: 80%;
+  margin-bottom: 40px;
+}
+
+/* FAMILY BLOCKS LAYOUT GRID */
+.family-hierarchy {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  margin-top: 20px;
+  border-top: 1px solid #f2edd6;
+  padding-top: 30px;
+}
+
+.family-side small {
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.family-side p {
+  font-size: 13px;
+  line-height: 1.5;
+  color: var(--text-dark);
+}
+
+.scroll-arrow-down {
+  position: absolute;
+  bottom: 30px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-light);
+}
+
+/* CALENDAR DATA VIEWS */
+.calendar-container {
+  margin: 30px 0;
+  text-align: center;
+}
+
+.calendar-header {
+  font-size: 16px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 12px;
+  margin-bottom: 15px;
+}
+
+.calendar-date-display {
+  font-size: 84px;
+  font-weight: 100;
+  line-height: 1;
+  color: var(--text-dark);
+}
+
+.calendar-days-row {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 15px;
+}
+
+.day-pill {
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 12px;
+  border: 1px solid var(--border-color);
+  color: var(--text-light);
+}
+
+.day-pill.active {
+  background: var(--gold);
+  color: white;
+  border-color: var(--gold);
+}
+
+.add-to-cal-btn {
+  background: transparent;
+  border: 1px solid var(--text-dark);
+  padding: 12px 24px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  cursor: pointer;
+  margin-top: 30px;
+  color: var(--text-dark);
+}
+
+/* LINE OF THE DAY TIMELINE DETAILS */
+h2 {
+  font-size: 28px;
+  font-weight: 300;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+}
+
+.timeline-event {
+  margin-bottom: 40px;
+  max-width: 85%;
+}
+
+.event-time {
+  font-size: 12px;
+  letter-spacing: 2px;
+  color: var(--gold);
+  display: block;
+  margin-bottom: 8px;
+}
+
+.timeline-event h3 {
+  font-size: 20px;
+  font-weight: 300;
+  margin-bottom: 10px;
+}
+
+.event-desc {
+  font-size: 13px;
+  color: var(--text-light);
+  line-height: 1.7;
+}
+
+.venue-subtext {
+  font-size: 12px;
+  margin-top: 6px;
+  color: var(--text-dark);
+}
+
+/* COUNTDOWN INTERFACE PROPORTIONS */
+.countdown-main-num span {
+  font-size: 72px;
+  font-weight: 100;
+  display: block;
+  line-height: 1;
+}
+
+.countdown-main-num small {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-light);
+}
+
+.countdown-grid {
+  display: flex;
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.countdown-item span {
+  font-size: 28px;
+  font-weight: 300;
+  display: block;
+}
+
+.countdown-item small {
+  font-size: 10px;
+  letter-spacing: 1px;
+  color: var(--text-light);
+}
+
+.romantic-footer {
+  font-style: italic;
+  font-size: 13px;
+  color: var(--text-light);
+}
+
+/* VENUE AREA MAP STYLING MOCKUP */
+.map-mock-container {
+  width: 100%;
+  height: 220px;
+  background: #f4f0e6;
+  border: 1px solid var(--border-color);
+  margin: 20px 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.map-pin {
+  width: 16px;
+  height: 16px;
+  background: #c24b4b;
+  border-radius: 50%;
+  position: relative;
+}
+
+.map-pin::after {
+  content: '';
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #c24b4b;
+  border-radius: 50%;
+  animation: pulsePin 2s infinite ease-out;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-/* REPOSITIONED ACTION TRIGGER LINK */
-#open-invitation {
+@keyframes pulsePin {
+  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
+}
+
+.map-label {
   position: absolute;
-  left: 50%;
-  bottom: 120px;
-  transform: translateX(-50%);
-  background: white;
-  color: #6d6459;
-  border: 1px solid var(--border);
-  border-radius: 999px;
-  padding: 16px 40px;
-  font-size: 11px;
-  letter-spacing: 4px;
-  cursor: pointer;
-  z-index: 20;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
-}
-
-/* MUSIC SYSTEM CONTROLLER */
-#music-toggle {
-  position: absolute;
-  right: 20px;
-  bottom: 25px;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  border: 1px solid var(--border);
-  background: white;
-  font-size: 16px;
-  color: var(--text);
-  cursor: pointer;
-  z-index: 20;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-/* CONTENT HERO ARCHES */
-.hero-section {
-  min-height: 100vh;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 30px;
-}
-
-.arched-frame {
-  width: 100%;
-  background: white;
-  border: 1px solid var(--border);
-  border-top-left-radius: 220px;
-  border-top-right-radius: 220px;
-  text-align: center;
-  padding: 90px 30px 50px;
-  box-shadow: 0 20px 40px rgba(0,0,0,.04);
-}
-
-.date-badge {
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 999px;
-  border: 1px solid var(--border);
-  margin-bottom: 25px;
-  letter-spacing: 2px;
+  margin-top: 45px;
   font-size: 13px;
+  font-weight: bold;
 }
 
-.invitation-label {
-  text-transform: uppercase;
-  letter-spacing: 4px;
-  font-size: 11px;
-  margin-bottom: 18px;
-}
-
-.couple-names {
-  font-size: 38px;
-  font-weight: 300;
-  margin-bottom: 25px;
-  color: #4a4238;
-}
-
-.invitation-message {
-  line-height: 1.9;
-  font-size: 14px;
-}
-
-/* APP SUBSECTION CARD FLOWS */
-.event-details,
-.countdown-section,
-.gallery-section,
-.story-section,
-.location-section,
-.closing-section {
-  min-height: 100vh;
-  padding: 90px 30px;
-  text-align: center;
-  background: var(--cream);
-}
-
-h2 {
-  font-size: 32px;
-  margin-bottom: 30px;
-  font-weight: 300;
-}
-
-/* GRID LAYOUTS */
-.countdown-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 15px;
-}
-
-.countdown-item {
-  background: white;
-  padding: 30px 12px;
-  border-radius: 24px;
-  border: 1px solid var(--border);
-}
-
-.countdown-item span {
-  display: block;
-  font-size: 32px;
-  margin-bottom: 10px;
-}
-
-.gallery-container {
-  display: grid;
-  gap: 16px;
-}
-
-.gallery-item {
-  height: 250px;
-  border-radius: 30px;
-  background: linear-gradient(135deg, #f1e9de, #ddd1c1);
-}
-
-.location-section a {
+.location-btn {
   display: inline-block;
-  margin-top: 20px;
-  background: var(--gold);
-  color: white;
+  border: 1px solid var(--text-dark);
+  padding: 12px 30px;
+  font-size: 11px;
+  letter-spacing: 3px;
   text-decoration: none;
-  padding: 15px 28px;
-  border-radius: 999px;
+  color: var(--text-dark);
+  margin-top: 20px;
+}
+
+/* GALLERY OVERLAY BLOCKS */
+.upload-placeholder-box {
+  width: 100%;
+  border: 1px dashed var(--border-color);
+  padding: 40px 20px;
+  background: #fafaf8;
+}
+
+.upload-placeholder-box p {
   font-size: 14px;
+  line-height: 1.7;
+  color: var(--text-light);
+}
+
+.gallery-timer {
+  margin-top: 20px;
+  font-size: 12px;
+  color: var(--gold);
   letter-spacing: 1px;
 }
 
-.closing-section {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* CLOSING FRAMES PAGE layout */
+.closing-msg {
+  font-size: 16px;
+  letter-spacing: 1px;
+  margin-bottom: 15px;
+  color: var(--text-light);
+}
+
+.final-date-stamp {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--text-dark);
+  border-top: 1px solid var(--border-color);
+  padding-top: 15px;
+  margin-top: 20px;
+  width: 60%;
 }
