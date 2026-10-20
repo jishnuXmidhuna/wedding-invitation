@@ -1,143 +1,115 @@
-// Hide invitation content initially
-const invitationContent = document.getElementById("invitation-content");
-invitationContent.style.display = "none";
-
-// Open invitation button
-const openButton = document.getElementById("open-invitation");
-
-openButton.addEventListener("click", () => {
-
-    // Animate doors opening
+document.addEventListener("DOMContentLoaded", () => {
+    
+    // 1. SELECT VALID NODES MAPPED TO YOUR DOM
+    const invitationContent = document.getElementById("invitation-content");
+    const openButton = document.getElementById("medallion"); 
+    const splashScreen = document.getElementById("splash-screen");
     const leftDoor = document.querySelector(".left-door");
     const rightDoor = document.querySelector(".right-door");
+    const musicButton = document.getElementById("music-toggle");
+    
+    // Lock viewport scrolling initially while splash panels overlay views
+    document.body.style.overflow = "hidden";
+    
+    // Hide invitation card visibility cleanly without disrupting layout bounds calculation
+    invitationContent.style.opacity = "0";
+    invitationContent.style.transform = "translateY(40px)";
 
-    leftDoor.style.transition = "transform 1.5s ease";
-    rightDoor.style.transition = "transform 1.5s ease";
+    // 2. ACTIVE OPEN DOOR TRANSITIONS EVENT 
+    openButton.addEventListener("click", () => {
+        // Inject transition settings dynamically to allow fluid 3D transformations
+        leftDoor.style.transition = "transform 1.6s cubic-bezier(0.25, 1, 0.5, 1)";
+        rightDoor.style.transition = "transform 1.6s cubic-bezier(0.25, 1, 0.5, 1)";
 
-    leftDoor.style.transformOrigin = "left center";
-    rightDoor.style.transformOrigin = "right center";
+        leftDoor.style.transformOrigin = "left center";
+        rightDoor.style.transformOrigin = "right center";
 
-    leftDoor.style.transform = "perspective(1500px) rotateY(-110deg)";
-    rightDoor.style.transform = "perspective(1500px) rotateY(110deg)";
+        // Spin panels on Y planes out of screen boundaries
+        leftDoor.style.transform = "perspective(1500px) rotateY(-110deg)";
+        rightDoor.style.transform = "perspective(1500px) rotateY(110deg)";
 
-    // Hide controls
-    document.querySelector(".door-latch").style.opacity = "0";
-    openButton.style.opacity = "0";
+        // Fade trigger medallion buttons out smoothly
+        openButton.style.transition = "opacity 0.6s ease";
+        openButton.style.opacity = "0";
+        openButton.style.pointerEvents = "none";
 
-    // Show invitation after animation
-    setTimeout(() => {
-
-        document.getElementById("splash-screen").style.display = "none";
-
-        invitationContent.style.display = "block";
-
-        invitationContent.style.opacity = "0";
-        invitationContent.style.transform = "translateY(40px)";
-
+        // Unveil main invite framework cards sequentially after door swings finish
         setTimeout(() => {
-            invitationContent.style.transition =
-                "opacity 1s ease, transform 1s ease";
+            splashScreen.style.display = "none";
+            document.body.style.overflow = "auto"; // Re-enable window device scrolling
 
+            invitationContent.style.transition = "opacity 1.2s ease, transform 1.2s ease";
             invitationContent.style.opacity = "1";
             invitationContent.style.transform = "translateY(0)";
-        }, 100);
+            
+            // Execute layout scroll validation triggers immediately 
+            revealOnScroll(); 
+        }, 1600);
+    });
 
-    }, 1600);
+    // 3. RELIABLE TARGET DATE COUNTDOWN TIMER ENGINE
+    const weddingDate = new Date("2027-01-27T10:30:00").getTime(); // Synced to HTML text date
 
-});
+    function updateCountdown() {
+        const now = new Date().getTime();
+        const difference = weddingDate - now;
 
+        if (difference < 0) {
+            document.querySelector(".countdown-section h2").textContent = "The Celebration Has Begun!";
+            return;
+        }
 
-// COUNTDOWN TIMER
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-const weddingDate = new Date("2027-02-21T10:30:00").getTime();
-
-function updateCountdown() {
-
-    const now = new Date().getTime();
-
-    const difference = weddingDate - now;
-
-    if (difference < 0) {
-        return;
+        // padStart guarantees uniform single digit text layouts (e.g. "04" days)
+        document.getElementById("days").textContent = days.toString().padStart(2, '0');
+        document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
+        document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
+        document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
     }
 
-    const days = Math.floor(
-        difference / (1000 * 60 * 60 * 24)
-    );
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
 
-    const hours = Math.floor(
-        (difference % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
+    // 4. AUDIO MUSIC PLAYER TOGGLE TRACKER
+    let musicPlaying = false;
 
-    const minutes = Math.floor(
-        (difference % (1000 * 60 * 60))
-        / (1000 * 60)
-    );
-
-    const seconds = Math.floor(
-        (difference % (1000 * 60))
-        / 1000
-    );
-
-    document.getElementById("days").textContent = days;
-    document.getElementById("hours").textContent = hours;
-    document.getElementById("minutes").textContent = minutes;
-    document.getElementById("seconds").textContent = seconds;
-}
-
-updateCountdown();
-
-setInterval(updateCountdown, 1000);
-
-
-// MUSIC BUTTON
-
-const musicButton = document.getElementById("music-toggle");
-
-let musicPlaying = false;
-
-musicButton.addEventListener("click", () => {
-
-    musicPlaying = !musicPlaying;
-
-    if (musicPlaying) {
-        musicButton.textContent = "🔊";
-    } else {
-        musicButton.textContent = "♪";
-    }
-
-});
-
-
-// SCROLL REVEAL ANIMATION
-
-const sections = document.querySelectorAll(
-    ".event-details, .countdown-section, .gallery-section, .story-section, .location-section, .closing-section"
-);
-
-const revealOnScroll = () => {
-
-    sections.forEach(section => {
-
-        const top = section.getBoundingClientRect().top;
-        const trigger = window.innerHeight * 0.85;
-
-        if (top < trigger) {
-
-            section.style.opacity = "1";
-            section.style.transform = "translateY(0)";
+    musicButton.addEventListener("click", () => {
+        musicPlaying = !musicPlaying;
+        
+        if (musicPlaying) {
+            musicButton.textContent = "🔊";
+        } else {
+            musicButton.textContent = "♪";
         }
     });
-};
 
-sections.forEach(section => {
-    section.style.opacity = "0";
-    section.style.transform = "translateY(50px)";
-    section.style.transition =
-        "all 0.8s ease";
+    // 5. PARALLAX SCROLL ENTRY VISIBILITY MATRIX
+    const sections = document.querySelectorAll(
+        ".event-details, .countdown-section, .gallery-section, .story-section, .location-section, .closing-section"
+    );
+
+    const revealOnScroll = () => {
+        sections.forEach(section => {
+            const top = section.getBoundingClientRect().top;
+            const trigger = window.innerHeight * 0.85;
+
+            if (top < trigger) {
+                section.style.opacity = "1";
+                section.style.transform = "translateY(0)";
+            }
+        });
+    };
+
+    // Initialize clean hide states across sub-sections
+    sections.forEach(section => {
+        section.style.opacity = "0";
+        section.style.transform = "translateY(50px)";
+        section.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+    });
+
+    window.addEventListener("scroll", revealOnScroll);
 });
-
-window.addEventListener("scroll", revealOnScroll);
-
-revealOnScroll();
