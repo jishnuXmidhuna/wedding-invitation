@@ -1,61 +1,38 @@
 document.addEventListener("DOMContentLoaded", () => {
     
-    // 1. SELECT VALID NODES MAPPED TO YOUR DOM
-    const invitationContent = document.getElementById("invitation-content");
-    const openButton = document.getElementById("medallion"); 
     const splashScreen = document.getElementById("splash-screen");
-    const leftDoor = document.querySelector(".left-door");
-    const rightDoor = document.querySelector(".right-door");
+    const openButton = document.getElementById("open-invitation"); 
     const musicButton = document.getElementById("music-toggle");
+    const invitationContent = document.getElementById("invitation-content");
     
-    // Lock viewport scrolling initially while splash panels overlay views
+    // 1. Lock screen body scrolling interactions instantly on configuration initialization
     document.body.style.overflow = "hidden";
-    
-    // Hide invitation card visibility cleanly without disrupting layout bounds calculation
-    invitationContent.style.opacity = "0";
-    invitationContent.style.transform = "translateY(40px)";
 
-    // 2. ACTIVE OPEN DOOR TRANSITIONS EVENT 
+    // 2. DOOR SLIDING ANIMATION ACTION DISPATCHER
     openButton.addEventListener("click", () => {
-        // Inject transition settings dynamically to allow fluid 3D transformations
-        leftDoor.style.transition = "transform 1.6s cubic-bezier(0.25, 1, 0.5, 1)";
-        rightDoor.style.transition = "transform 1.6s cubic-bezier(0.25, 1, 0.5, 1)";
+        // Appends animation trigger class rules to the shutter panels
+        splashScreen.classList.add("open-active");
 
-        leftDoor.style.transformOrigin = "left center";
-        rightDoor.style.transformOrigin = "right center";
-
-        // Spin panels on Y planes out of screen boundaries
-        leftDoor.style.transform = "perspective(1500px) rotateY(-110deg)";
-        rightDoor.style.transform = "perspective(1500px) rotateY(110deg)";
-
-        // Fade trigger medallion buttons out smoothly
-        openButton.style.transition = "opacity 0.6s ease";
-        openButton.style.opacity = "0";
-        openButton.style.pointerEvents = "none";
-
-        // Unveil main invite framework cards sequentially after door swings finish
+        // Gracefully remove splash screen node components from active render stack 
         setTimeout(() => {
-            splashScreen.style.display = "none";
-            document.body.style.overflow = "auto"; // Re-enable window device scrolling
-
-            invitationContent.style.transition = "opacity 1.2s ease, transform 1.2s ease";
-            invitationContent.style.opacity = "1";
-            invitationContent.style.transform = "translateY(0)";
+            splashScreen.style.opacity = "0";
+            splashScreen.style.visibility = "hidden";
+            document.body.style.overflow = "auto"; // Unlock scroll inputs completely
             
-            // Execute layout scroll validation triggers immediately 
-            revealOnScroll(); 
-        }, 1600);
+            // Fire initial scroll calculations instantly upon opening viewport
+            revealSections(); 
+        }, 1600); // Perfectly synced to match CSS transition timings
     });
 
-    // 3. RELIABLE TARGET DATE COUNTDOWN TIMER ENGINE
-    const weddingDate = new Date("2027-01-27T10:30:00").getTime(); // Synced to HTML text date
+    // 3. TARGET WEDDING COUNTDOWN MATRIX CLOCK ENGINE
+    const weddingDate = new Date("2026-12-06T10:30:00").getTime(); // Dec 06, 2026
 
-    function updateCountdown() {
+    function runCountdownTimer() {
         const now = new Date().getTime();
         const difference = weddingDate - now;
 
         if (difference < 0) {
-            document.querySelector(".countdown-section h2").textContent = "The Celebration Has Begun!";
+            document.querySelector(".countdown-section h2").textContent = "The Big Day Has Arrived!";
             return;
         }
 
@@ -64,52 +41,49 @@ document.addEventListener("DOMContentLoaded", () => {
         const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
         const seconds = Math.floor((difference % (1000 * 60)) / 1000);
 
-        // padStart guarantees uniform single digit text layouts (e.g. "04" days)
         document.getElementById("days").textContent = days.toString().padStart(2, '0');
         document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
         document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
         document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
+        
+        // Synced helper value text updates for gallery upload widget parameters
+        const galleryCountdown = document.getElementById("gallery-countdown");
+        if(galleryCountdown) {
+             galleryCountdown.textContent = `${days} days ${hours} hours remaining`;
+        }
     }
 
-    updateCountdown();
-    setInterval(updateCountdown, 1000);
+    runCountdownTimer();
+    setInterval(runCountdownTimer, 1000);
 
-    // 4. AUDIO MUSIC PLAYER TOGGLE TRACKER
+    // 4. MUSIC CONTROLLER TRACKER
     let musicPlaying = false;
-
     musicButton.addEventListener("click", () => {
         musicPlaying = !musicPlaying;
-        
-        if (musicPlaying) {
-            musicButton.textContent = "🔊";
-        } else {
-            musicButton.textContent = "♪";
-        }
+        musicButton.textContent = musicPlaying ? "🔊" : "♪";
     });
 
-    // 5. PARALLAX SCROLL ENTRY VISIBILITY MATRIX
-    const sections = document.querySelectorAll(
-        ".event-details, .countdown-section, .gallery-section, .story-section, .location-section, .closing-section"
-    );
+    // 5. PARALLAX FADE-IN SCROLL ACTIONS MONITOR 
+    const sections = document.querySelectorAll(".text-reveal-zone");
 
-    const revealOnScroll = () => {
+    const revealSections = () => {
         sections.forEach(section => {
             const top = section.getBoundingClientRect().top;
-            const trigger = window.innerHeight * 0.85;
+            const triggerThreshold = window.innerHeight * 0.82;
 
-            if (top < trigger) {
+            if (top < triggerThreshold) {
                 section.style.opacity = "1";
                 section.style.transform = "translateY(0)";
             }
         });
     };
 
-    // Initialize clean hide states across sub-sections
+    // Pre-initialize standard view boundaries array attributes 
     sections.forEach(section => {
         section.style.opacity = "0";
         section.style.transform = "translateY(50px)";
-        section.style.transition = "opacity 0.8s ease, transform 0.8s ease";
+        section.style.transition = "opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1)";
     });
 
-    window.addEventListener("scroll", revealOnScroll);
+    window.addEventListener("scroll", revealSections);
 });
