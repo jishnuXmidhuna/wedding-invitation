@@ -23,8 +23,7 @@ body {
   font-family: Arial, sans-serif;
 }
 
-/* MOBILE APP FRAME */
-
+/* MOBILE APP FRAME CONTAINER */
 #splash-screen,
 #invitation-content {
   width: 100%;
@@ -34,11 +33,15 @@ body {
   min-height: 100vh;
 }
 
-/* SPLASH SCREEN */
-
+/* SPLASH SCREEN & 3D DEPTH CONTEXT */
 #splash-screen {
-  position: relative;
+  position: fixed; /* Keeps splash screen locked in viewport view layer */
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 9999;
   overflow: hidden;
+  perspective: 1500px; /* Crucial parameter to allow realistic 3D panel rotations */
 }
 
 .door-container {
@@ -48,172 +51,106 @@ body {
 }
 
 /* LEFT & RIGHT DOORS */
-
-.left-door,
-.right-door {
+.door {
   position: absolute;
   top: 0;
   width: 50%;
   height: 100vh;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f9f5ef,
-      #ebe2d6
-    );
-
-  box-shadow:
-    inset 0 0 40px rgba(0,0,0,0.06);
-
-  border: 1px solid rgba(0,0,0,0.03);
+  background: linear-gradient(135deg, #f9f5ef, #ebe2d6);
+  box-shadow: inset 0 0 40px rgba(0,0,0,0.06);
+  will-change: transform; /* Boosts mobile rendering performance */
 }
 
 .left-door {
   left: 0;
+  border-right: 1px solid rgba(0,0,0,0.05);
 }
 
 .right-door {
   right: 0;
+  border-left: 1px solid rgba(0,0,0,0.05);
 }
 
-/* EMBOSSED FLORAL FEEL */
-
+/* EMBOSSED FLORAL TEXTURE MOCKUP */
 .floral-pattern {
   position: absolute;
   inset: 0;
-
   background:
       radial-gradient(circle at 20% 20%, rgba(255,255,255,.8), transparent 35%),
       radial-gradient(circle at 75% 40%, rgba(255,255,255,.6), transparent 30%),
       radial-gradient(circle at 30% 85%, rgba(255,255,255,.7), transparent 30%);
 }
 
-/* LATCH */
-
-.door-latch {
-  position: absolute;
-  width: 90px;
-  height: 120px;
-  left: 50%;
-  top: 44%;
-  transform: translate(-50%, -50%);
-  border-radius: 999px;
-
-  background: #faf6f0;
-  border: 2px solid #d3c1a6;
-
-  z-index: 10;
-}
-
-.latch-ornament {
-  width: 34px;
-  height: 34px;
-  border-radius: 50%;
-  border: 1px solid #d3c1a6;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-/* OPEN BUTTON */
-
-#open-invitation {
+/* CLICKABLE CENTRAL MEDALLION BUTTON */
+#medallion {
   position: absolute;
   left: 50%;
   bottom: 90px;
   transform: translateX(-50%);
-
   background: white;
   color: #6d6459;
-
-  border: none;
+  border: 1px solid var(--border);
   border-radius: 999px;
-
   padding: 18px 45px;
-
   font-size: 12px;
   letter-spacing: 4px;
-
   cursor: pointer;
-
   z-index: 20;
-
-  box-shadow:
-    0 10px 25px rgba(0,0,0,0.06);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+  transition: opacity 0.5s ease, transform 0.5s ease;
 }
 
-/* MUSIC BUTTON */
+#medallion:hover {
+  background-color: #faf6f0;
+}
 
+/* MUSIC COMPONENT WIDGET */
 #music-toggle {
   position: absolute;
   right: 20px;
   bottom: 25px;
-
   width: 52px;
   height: 52px;
-
   border-radius: 50%;
-  border: none;
-
+  border: 1px solid var(--border);
   background: white;
-
   font-size: 18px;
-
+  cursor: pointer;
   z-index: 20;
 }
 
-/* HERO */
-
+/* INVITATION DETAILS CARD HERO LAYER */
 .hero-section {
   min-height: 100vh;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
   padding: 30px;
 }
 
-/* ARCH */
-
+/* ARCH FRAMING COMPONENTS */
 .arched-frame {
   width: 100%;
   background: white;
-
   border: 1px solid var(--border);
-
   border-top-left-radius: 220px;
   border-top-right-radius: 220px;
-
   text-align: center;
-
   padding: 90px 30px 50px;
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,.04);
+  box-shadow: 0 20px 40px rgba(0,0,0,.04);
 }
 
-/* DATE BADGE */
-
+/* DATE BADGE TEXT PARAMETERS */
 .date-badge {
   display: inline-block;
-
   padding: 10px 20px;
-
   border-radius: 999px;
-
   border: 1px solid var(--border);
-
   margin-bottom: 25px;
-
   letter-spacing: 2px;
 }
 
-/* TEXT */
-
+/* TYPOGRAPHY */
 .invitation-label {
   text-transform: uppercase;
   letter-spacing: 4px;
@@ -222,7 +159,7 @@ body {
 }
 
 .couple-names {
-  font-size: 56px;
+  font-size: 42px; /* Adjusted scale to comfortably fit mobile views */
   font-weight: 300;
   margin-bottom: 25px;
 }
@@ -232,8 +169,7 @@ body {
   font-size: 15px;
 }
 
-/* COMMON SECTION STYLE */
-
+/* COMMON BODY CONTAINER SECTION STYLING */
 .event-details,
 .countdown-section,
 .gallery-section,
@@ -243,16 +179,16 @@ body {
   min-height: 100vh;
   padding: 90px 30px;
   text-align: center;
+  background: var(--cream);
 }
 
 h2 {
-  font-size: 42px;
+  font-size: 36px;
   margin-bottom: 30px;
   font-weight: 300;
 }
 
-/* COUNTDOWN */
-
+/* THE WEDDING TIMER DISPLAY */
 .countdown-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -272,8 +208,7 @@ h2 {
   margin-bottom: 10px;
 }
 
-/* GALLERY */
-
+/* ALBUM PHOTO GALLERY GRID */
 .gallery-container {
   display: grid;
   gap: 16px;
@@ -281,36 +216,27 @@ h2 {
 
 .gallery-item {
   height: 250px;
-
   border-radius: 30px;
-
-  background:
-    linear-gradient(
-      135deg,
-      #f1e9de,
-      #ddd1c1
-    );
+  background: linear-gradient(135deg, #f1e9de, #ddd1c1);
 }
 
-/* LOCATION BUTTON */
-
+/* NAVIGATION VENUE REDIRECTS */
 .location-section a {
   display: inline-block;
-
   margin-top: 20px;
-
   background: var(--gold);
   color: white;
-
   text-decoration: none;
-
   padding: 15px 28px;
-
   border-radius: 999px;
+  transition: opacity 0.3s ease;
 }
 
-/* CLOSING */
+.location-section a:hover {
+  opacity: 0.9;
+}
 
+/* CLOSING SEGMENTS */
 .closing-section {
   display: flex;
   align-items: center;
