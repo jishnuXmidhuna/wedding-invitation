@@ -100,8 +100,8 @@ body {
 /* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
 .door-latch {
   position: absolute;
-  width: 152px; /* This will definitely control it now */
-  height: 196px;
+  width: 76px; /* This will definitely control it now */
+  height: 98px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
