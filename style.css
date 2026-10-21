@@ -137,8 +137,8 @@ body {
 }
 
 .latch-artwork {
-  width: 100%;       /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
-  height: 100%;      /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
+  width: 90%;       /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
+  height: 90%;      /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
   object-fit: cover; /* ⬅️ CHANGE: Changed from contain to cover so it fills the oval boundaries completely */
   border-radius: 50% / 42%; /* Locks your PNG image into the exact oval curvature */
 }
