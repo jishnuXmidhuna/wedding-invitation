@@ -521,3 +521,10 @@ h2 {
   margin-top: 20px;
   width: 60%;
 }
+
+/* ADD THIS TO THE VERY BOTTOM OF YOUR style.css FILE */
+#splash-screen.open-active .door-latch {
+  opacity: 0;
+  transform: translate(-330%, -50%); 
+  pointer-events: none;
+}
