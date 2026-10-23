@@ -98,18 +98,19 @@ body {
 .right-lace { background-image: url('right-lace.png'); background-position: right center; }
 
 /* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
+/* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
 .door-latch {
   position: absolute;
-  width: 152px; /* This will definitely control it now */
+  width: 152px; 
   height: 196px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 30;
   cursor: pointer;
-  /* Synchronize the duration with the doors and tell the GPU to optimize for smooth movement */
-  transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1), opacity 0.9s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity;
+  /* Hardware optimization added here */
+  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity; 
   box-sizing: border-box; 
 }
 
@@ -124,8 +125,11 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0px;
-  box-sizing: border-box; /* ADD THIS: Keeps dimensions absolute */
-  overflow: hidden; /* ⬅️ FIX 3: Cuts off any slight corner overflow from the image background */
+  box-sizing: border-box; 
+  overflow: hidden; 
+  /* Synced transition properties */
+  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
 }
 
 .latch-frame {
@@ -136,15 +140,21 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box; /* ADD THIS: Keeps dimensions absolute */
-  overflow: hidden; /* ⬅️ FIX 4: Mandates clean rounding on the dashed inner layer */
+  box-sizing: border-box; 
+  overflow: hidden; 
+  /* Synced transition properties */
+  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
 }
 
 .latch-artwork {
-  width: 90%;       /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
-  height: 90%;      /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
-  object-fit: cover; /* ⬅️ CHANGE: Changed from contain to cover so it fills the oval boundaries completely */
-  border-radius: 50% / 42%; /* Locks your PNG image into the exact oval curvature */
+  width: 90%;       
+  height: 90%;      
+  object-fit: cover; 
+  border-radius: 50% / 42%; 
+  /* Synced transition properties */
+  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
+  will-change: transform, opacity;
 }
 
 /* SCROLL PROMPT ANIMATION MECHANICS */
