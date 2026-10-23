@@ -58,18 +58,20 @@ body {
 .door {
   position: absolute;
   top: 0;
-  width: 50%;
+  width: 50.5%; /* ⬅️ CHANGE: Prevents sub-pixel middle vertical seam line leaks */
   height: 100%;
   background-color: #ede6db;
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.05);
-  transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+  /* Upgraded curve to match the premium deceleration profile of the reference video */
+  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
   will-change: transform;
 }
 
 .left-door {
   left: 0;
   border-right: 1px solid rgba(0, 0, 0, 0.06);
-  z-index: 2; /* ⬅️ ADD THIS: Higher index forces the left panel to the front layer */
+  z-index: 2;
+  overflow: visible; /* ⬅️ CHANGE: Stops the door container from cutting off your graphic */
 }
 
 .right-door {
@@ -79,12 +81,11 @@ body {
 }
 
 /* SHUTTER SLIDE INTERACTION TRIGGER TARGETS */
-#splash-screen.open-active .left-door {
-  transform: translateX(-100%);
-}
-
-#splash-screen.open-active .right-door {
-  transform: translateX(100%);
+#splash-screen.open-active {
+  opacity: 0;
+  visibility: hidden;
+  /* Softly fades the container away at the end of the door slide timeline */
+  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s linear 1.6s;
 }
 
 /* LACE OVERLAY ASSETS GRAPHICS MOCKUP */
@@ -96,8 +97,17 @@ body {
   opacity: 0.9;
 }
 
-.left-lace { background-image: url('left-lace.png'); background-position: left center; }
-.right-lace { background-image: url('right-lace.png'); background-position: right center; }
+.left-lace { 
+  background-image: url('left-lace.png'); 
+  background-position: right center; /* Anchors the image right at the opening edge */
+  background-size: auto 100%;        /* Maintains actual asset dimensions without squishing */
+}
+
+.right-lace { 
+  background-image: url('right-lace.png'); 
+  background-position: left center;  /* Anchors the plain lace right at the opening edge */
+  background-size: auto 100%;        /* Maintains actual asset dimensions without squishing */
+}
 
 /* SCROLL PROMPT ANIMATION MECHANICS */
 .scroll-hint-btn {
@@ -464,11 +474,4 @@ h2 {
   padding-top: 15px;
   margin-top: 20px;
   width: 60%;
-}
-
-/* ADD THIS TO THE VERY BOTTOM OF YOUR style.css FILE */
-#splash-screen.open-active .door-latch {
-  opacity: 0;
-  transform: translate(-330%, -50%); 
-  pointer-events: none;
 }
