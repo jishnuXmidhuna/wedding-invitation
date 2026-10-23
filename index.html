@@ -8,35 +8,37 @@
 </head>
 <body>
 
-    <!-- SPLASH SCREEN OVERLAY -->
-    <section id="splash-screen">
-        <div class="door-container">
-            <!-- Left Sliding Door -->
-            <div class="door left-door">
-                <div class="lace-overlay left-lace"></div>
-                
-                <!-- MOVED INSIDE LEFT DOOR: The medallion now perfectly inherits the left horizontal slide motion -->
-                <div class="door-latch" id="open-invitation">
-                    <div class="latch-content">
-                        <div class="latch-frame">
-                            <img src="latch-branch.png" alt="Ornate Branch" class="latch-artwork">
-                        </div>
-                    </div>
+   <!-- SPLASH SCREEN OVERLAY -->
+<section id="splash-screen">
+    <div class="door-container">
+        
+        <!-- Left Sliding Door -->
+        <div class="door left-door">
+            <div class="lace-overlay left-lace"></div>
+        </div>
+        
+        <!-- Right Sliding Door -->
+        <div class="door right-door">
+            <div class="lace-overlay right-lace"></div>
+        </div>
+
+        <!-- Central Split Medallion -->
+        <div class="door-latch" id="open-invitation">
+            <div class="latch-content">
+                <div class="latch-frame">
+                    <img src="latch-branch.png" alt="Ornate Branch" class="latch-artwork">
                 </div>
             </div>
-            
-            <!-- Right Sliding Door -->
-            <div class="door right-door">
-                <div class="lace-overlay right-lace"></div>
-            </div>
-
-            <!-- Dynamic Indicator Hint -->
-            <div class="scroll-hint-btn">TAP TO OPEN</div>
-            
-            <!-- Persistent Sound Control -->
-            <button id="music-toggle">♪</button>
         </div>
-    </section>
+
+        <!-- Dynamic Indicator Hint -->
+        <div class="scroll-hint-btn">TAP TO OPEN</div>
+        
+        <!-- Persistent Sound Control -->
+        <button id="music-toggle">♪</button>
+        
+    </div>
+</section>
 
     <!-- MAIN INVITATION FRAME -->
     <main id="invitation-content">
