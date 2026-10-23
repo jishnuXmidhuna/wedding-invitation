@@ -1,89 +1,118 @@
 document.addEventListener("DOMContentLoaded", () => {
-    
+
     const splashScreen = document.getElementById("splash-screen");
-    const openButton = document.getElementById("open-invitation"); 
+    const openButton = document.getElementById("open-invitation");
     const musicButton = document.getElementById("music-toggle");
-    const invitationContent = document.getElementById("invitation-content");
-    
-    // 1. Lock screen body scrolling interactions instantly on configuration initialization
+
+    // Lock scrolling until invitation opened
     document.body.style.overflow = "hidden";
 
-    // 2. DOOR SLIDING ANIMATION ACTION DISPATCHER
+    // DOOR OPENING
     openButton.addEventListener("click", () => {
-        // Appends animation trigger class rules to the shutter panels
+
         splashScreen.classList.add("open-active");
 
-        // Gracefully remove splash screen node components from active render stack 
         setTimeout(() => {
             splashScreen.style.opacity = "0";
             splashScreen.style.visibility = "hidden";
-            document.body.style.overflow = "auto"; // Unlock scroll inputs completely
-            
-            // Fire initial scroll calculations instantly upon opening viewport
-            revealSections(); 
-        }, 1600); // Perfectly synced to match CSS transition timings
+            splashScreen.style.pointerEvents = "none";
+
+            document.body.style.overflow = "auto";
+
+            revealSections();
+        }, 1600);
     });
 
-    // 3. TARGET WEDDING COUNTDOWN MATRIX CLOCK ENGINE
-    const weddingDate = new Date("2026-12-06T10:30:00").getTime(); // Dec 06, 2026
+    // COUNTDOWN TIMER
+    const weddingDate = new Date("2026-12-06T10:30:00").getTime();
 
     function runCountdownTimer() {
         const now = new Date().getTime();
         const difference = weddingDate - now;
 
-        if (difference < 0) {
-            document.querySelector(".countdown-section h2").textContent = "The Big Day Has Arrived!";
+        if (difference <= 0) {
+            document.getElementById("days").textContent = "00";
+            document.getElementById("hours").textContent = "00";
+            document.getElementById("minutes").textContent = "00";
+            document.getElementById("seconds").textContent = "00";
             return;
         }
 
         const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
-        const seconds = Math.floor((difference % (1000 * 60)) / 1000);
+        const hours = Math.floor(
+            (difference % (1000 * 60 * 60 * 24)) /
+            (1000 * 60 * 60)
+        );
 
-        document.getElementById("days").textContent = days.toString().padStart(2, '0');
-        document.getElementById("hours").textContent = hours.toString().padStart(2, '0');
-        document.getElementById("minutes").textContent = minutes.toString().padStart(2, '0');
-        document.getElementById("seconds").textContent = seconds.toString().padStart(2, '0');
-        
-        // Synced helper value text updates for gallery upload widget parameters
+        const minutes = Math.floor(
+            (difference % (1000 * 60 * 60)) /
+            (1000 * 60)
+        );
+
+        const seconds = Math.floor(
+            (difference % (1000 * 60)) /
+            1000
+        );
+
+        document.getElementById("days").textContent =
+            String(days).padStart(2, "0");
+
+        document.getElementById("hours").textContent =
+            String(hours).padStart(2, "0");
+
+        document.getElementById("minutes").textContent =
+            String(minutes).padStart(2, "0");
+
+        document.getElementById("seconds").textContent =
+            String(seconds).padStart(2, "0");
+
         const galleryCountdown = document.getElementById("gallery-countdown");
-        if(galleryCountdown) {
-             galleryCountdown.textContent = `${days} days ${hours} hours remaining`;
+
+        if (galleryCountdown) {
+            galleryCountdown.textContent =
+                `${days} days ${hours} hours remaining`;
         }
     }
 
     runCountdownTimer();
     setInterval(runCountdownTimer, 1000);
 
-    // 4. MUSIC CONTROLLER TRACKER
+    // MUSIC BUTTON
     let musicPlaying = false;
+
     musicButton.addEventListener("click", () => {
         musicPlaying = !musicPlaying;
-        musicButton.textContent = musicPlaying ? "🔊" : "♪";
+
+        if (musicPlaying) {
+            musicButton.textContent = "🔊";
+        } else {
+            musicButton.textContent = "♪";
+        }
     });
 
-    // 5. PARALLAX FADE-IN SCROLL ACTIONS MONITOR 
+    // SCROLL REVEAL ANIMATION
     const sections = document.querySelectorAll(".text-reveal-zone");
 
-    const revealSections = () => {
+    function revealSections() {
         sections.forEach(section => {
-            const top = section.getBoundingClientRect().top;
-            const triggerThreshold = window.innerHeight * 0.82;
 
-            if (top < triggerThreshold) {
+            const top = section.getBoundingClientRect().top;
+            const trigger = window.innerHeight * 0.85;
+
+            if (top < trigger) {
                 section.style.opacity = "1";
                 section.style.transform = "translateY(0)";
             }
         });
-    };
+    }
 
-    // Pre-initialize standard view boundaries array attributes 
     sections.forEach(section => {
         section.style.opacity = "0";
         section.style.transform = "translateY(50px)";
-        section.style.transition = "opacity 1.2s cubic-bezier(0.215, 0.610, 0.355, 1), transform 1.2s cubic-bezier(0.215, 0.610, 0.355, 1)";
+        section.style.transition =
+            "opacity 1s ease, transform 1s ease";
     });
 
     window.addEventListener("scroll", revealSections);
+
 });
