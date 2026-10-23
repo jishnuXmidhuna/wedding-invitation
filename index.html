@@ -5,151 +5,159 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ryan and Sneha - Wedding Invitation</title>
     <link rel="stylesheet" href="style.css">
+    <!-- Premium Serif typography for an elegant design aesthetic -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet">
 </head>
 <body>
 
-    <!-- SPLASH SCREEN OVERLAY -->
-    <section id="splash-screen">
-        <div class="door-container">
-            <!-- Left Sliding Door -->
-            <div class="door left-door">
-                <div class="lace-overlay left-lace"></div>
-            </div>
-            
-            <!-- Right Sliding Door -->
-            <div class="door right-door">
-                <div class="lace-overlay right-lace"></div>
-            </div>
+    <!-- Unified 540x1080 Viewport Canvas Shell -->
+    <div class="app-canvas">
 
-            <!-- Central Split Medallion -->
-            <div class="door-latch" id="open-invitation">
-                <div class="latch-content">
-                    <div class="latch-frame">
-                        <img src="latch-branch.png" alt="Ornate Branch" class="latch-artwork">
-                    </div>
+        <!-- SPLASH SCREEN OVERLAY (Positioned absolutely inside canvas context) -->
+        <section id="splash-screen">
+            <div class="door-container">
+                <!-- Left Sliding Door -->
+                <div class="door left-door">
+                    <div class="lace-overlay left-lace"></div>
                 </div>
-            </div>
-
-            <!-- Dynamic Indicator Hint -->
-            <div class="scroll-hint-btn">TAP TO OPEN</div>
-            
-            <!-- Persistent Sound Control -->
-            <button id="music-toggle">♪</button>
-        </div>
-    </section>
-
-    <!-- MAIN INVITATION FRAME -->
-    <main id="invitation-content">
-        
-        <!-- Hero Section -->
-        <section class="hero-section text-reveal-zone">
-            <div class="arched-frame">
-                <p class="invitation-label">Wedding Invitation</p>
-                <h1 class="couple-names">Ryan and Sneha</h1>
-                <p class="scripture-verse">"Therefore what God has joined together, let no one separate."</p>
-                <div class="family-hierarchy">
-                    <div class="family-side">
-                        <small>Our Families</small>
-                        <p>Paul & Violet<br>DSOUZA</p>
-                    </div>
-                    <div class="family-side">
-                        <small>Our Families</small>
-                        <p>Raphel & Savamma<br>GEORGE</p>
-                    </div>
-                </div>
-                <div class="scroll-arrow-down">Scroll Down ▾</div>
-            </div>
-        </section>
-
-        <!-- Calendar Section -->
-        <section class="calendar-section text-reveal-zone">
-            <div class="arched-frame">
-                <span class="section-badge">Date</span>
-                <div class="calendar-container">
-                    <div class="calendar-header">
-                        <span class="cal-month">December</span>
-                        <span class="cal-year">2026</span>
-                    </div>
-                    <div class="calendar-date-display">06</div>
-                    <div class="calendar-days-row">
-                        <span class="day-pill active">Sunday</span>
-                        <span class="day-pill">Monday</span>
-                    </div>
-                </div>
-                <button class="add-to-cal-btn">+ ADD TO CALENDAR</button>
-            </div>
-        </section>
-
-        <!-- Order of Service Section -->
-        <section class="event-details text-reveal-zone">
-            <div class="arched-frame">
-                <h2>Line of the day</h2>
                 
-                <div class="timeline-event">
-                    <span class="event-time">09:30 AM</span>
-                    <h3>Nuptial Mass</h3>
-                    <p class="event-desc">Our official ceremony will begin together with our family...</p>
-                    <p class="venue-subtext">Holy Family Church, Anchal</p>
+                <!-- Right Sliding Door -->
+                <div class="door right-door">
+                    <div class="lace-overlay right-lace"></div>
                 </div>
 
-                <div class="timeline-event">
-                    <span class="event-time">12:30 PM</span>
-                    <h3>Reception</h3>
-                    <p class="event-desc">Welcome drinks, lunch, cheer, and celebration to continue our festivities.</p>
+                <!-- Central Split Medallion Button Container -->
+                <div class="door-latch" id="open-invitation" role="button" aria-label="Open Invitation">
+                    <div class="latch-content">
+                        <div class="latch-frame">
+                            <!-- Standardized file reference from repository asset list -->
+                            <img src="center-latch.png" alt="Ornate Branch Medallion" class="latch-artwork">
+                        </div>
+                    </div>
+                    <!-- Moved text element inside latch context so it shares the fade/slide transform path -->
+                    <div class="scroll-hint-btn">TAP TO OPEN</div>
                 </div>
+                
+                <!-- Persistent Sound Control -->
+                <button id="music-toggle" aria-label="Toggle Audio">♪</button>
             </div>
         </section>
 
-        <!-- Countdown Clock -->
-        <section class="countdown-section text-reveal-zone">
-            <div class="arched-frame">
-                <span class="section-badge">Time until we meet</span>
-                <div class="countdown-main-num">
-                    <span id="days">00</span>
-                    <small>DAYS</small>
+        <!-- MAIN INVITATION FRAME (Scrollable content zone hidden beneath gates) -->
+        <main id="invitation-content" class="scroll-zone">
+            
+            <!-- Hero Section -->
+            <section class="hero-section text-reveal-zone">
+                <div class="arched-frame">
+                    <p class="invitation-label">Wedding Invitation</p>
+                    <h1 class="couple-names"><span class="reveal-block">Ryan</span> <small>&</small> <span class="reveal-block">Sneha</span></h1>
+                    <p class="scripture-verse">"Therefore what God has joined together, let no one separate."</p>
+                    <div class="family-hierarchy">
+                        <div class="family-side">
+                            <small>Our Families</small>
+                            <p><strong>Paul & Violet</strong><br>DSOUZA</p>
+                        </div>
+                        <div class="family-side">
+                            <small>Our Families</small>
+                            <p><strong>Raphel & Savamma</strong><br>GEORGE</p>
+                        </div>
+                    </div>
+                    <div class="scroll-arrow-down">Scroll Down ▾</div>
                 </div>
-                <div class="countdown-grid">
-                    <div class="countdown-item"><span id="hours">00</span><small>HOURS</small></div>
-                    <div class="countdown-item"><span id="minutes">00</span><small>MINS</small></div>
-                    <div class="countdown-item"><span id="seconds">00</span><small>SECS</small></div>
+            </section>
+
+            <!-- Calendar Section -->
+            <section class="calendar-section text-reveal-zone">
+                <div class="arched-frame">
+                    <span class="section-badge">Date</span>
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <span class="cal-month">December</span>
+                            <span class="cal-year">2026</span>
+                        </div>
+                        <div class="calendar-date-display">06</div>
+                        <div class="calendar-days-row">
+                            <span class="day-pill active">Sunday</span>
+                            <span class="day-pill">Monday</span>
+                        </div>
+                    </div>
+                    <button class="add-to-cal-btn">+ ADD TO CALENDAR</button>
                 </div>
-                <p class="romantic-footer">Two souls joining in a love as deep as the sea.</p>
-            </div>
-        </section>
+            </section>
 
-        <!-- Maps & Venue Location -->
-        <section class="location-section text-reveal-zone">
-            <div class="arched-frame">
-                <h2>Location</h2>
-                <div class="map-mock-container">
-                    <div class="map-pin"></div>
-                    <div class="map-label">Lotus Hall</div>
+            <!-- Order of Service Section -->
+            <section class="event-details text-reveal-zone">
+                <div class="arched-frame">
+                    <h2>Line of the Day</h2>
+                    
+                    <div class="timeline-event">
+                        <span class="event-time">09:30 AM</span>
+                        <h3>Nuptial Mass</h3>
+                        <p class="event-desc">Our official ceremony will begin together with our family...</p>
+                        <p class="venue-subtext">Holy Family Church, Anchal</p>
+                    </div>
+
+                    <div class="timeline-event">
+                        <span class="event-time">12:30 PM</span>
+                        <h3>Reception</h3>
+                        <p class="event-desc">Welcome drinks, lunch, cheer, and celebration to continue our festivities.</p>
+                    </div>
                 </div>
-                <a href="https://google.com" target="_blank" class="location-btn">DIRECTIONS</a>
-            </div>
-        </section>
+            </section>
 
-        <!-- Moments Upload Section -->
-        <section class="gallery-section text-reveal-zone">
-            <div class="arched-frame">
-                <h2>Our Favorite Moments</h2>
-                <div class="upload-placeholder-box">
-                    <p>Photo & video upload will be active on the day of the event.</p>
-                    <div class="gallery-timer" id="gallery-countdown">16 days 7 hours left</div>
+            <!-- Countdown Clock -->
+            <section class="countdown-section text-reveal-zone">
+                <div class="arched-frame">
+                    <span class="section-badge">Time until we meet</span>
+                    <div class="countdown-main-num">
+                        <span id="days">00</span>
+                        <small>DAYS</small>
+                    </div>
+                    <div class="countdown-grid">
+                        <div class="countdown-item"><span id="hours">00</span><small>HOURS</small></div>
+                        <div class="countdown-item"><span id="minutes">00</span><small>MINS</small></div>
+                        <div class="countdown-item"><span id="seconds">00</span><small>SECS</small></div>
+                    </div>
+                    <p class="romantic-footer">Two souls joining in a love as deep as the sea.</p>
                 </div>
-            </div>
-        </section>
+            </section>
 
-        <!-- Closing Page -->
-        <section class="closing-section text-reveal-zone">
-            <div class="arched-frame">
-                <h1 class="couple-names">Ryan and Sneha</h1>
-                <p class="closing-msg">Your presence will complete this day.</p>
-                <div class="final-date-stamp">06 DECEMBER 2026</div>
-            </div>
-        </section>
+            <!-- Maps & Venue Location -->
+            <section class="location-section text-reveal-zone">
+                <div class="arched-frame">
+                    <h2>Location</h2>
+                    <div class="map-mock-container">
+                        <div class="map-pin"></div>
+                        <div class="map-label">Lotus Hall</div>
+                    </div>
+                    <a href="https://maps.google.com" target="_blank" rel="noopener" class="location-btn">DIRECTIONS</a>
+                </div>
+            </section>
 
-    </main>
+            <!-- Moments Upload Section -->
+            <section class="gallery-section text-reveal-zone">
+                <div class="arched-frame">
+                    <h2>Our Favorite Moments</h2>
+                    <div class="upload-placeholder-box">
+                        <p>Photo & video upload will be active on the day of the event.</p>
+                        <div class="gallery-timer" id="gallery-countdown">Calculating...</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Closing Page -->
+            <section class="closing-section text-reveal-zone">
+                <div class="arched-frame">
+                    <h1 class="couple-names">Ryan & Sneha</h1>
+                    <p class="closing-msg">Your presence will complete this day.</p>
+                    <div class="final-date-stamp">06 DECEMBER 2026</div>
+                </div>
+            </section>
+
+        </main>
+    </div>
 
     <script src="script.js"></script>
 </body>
