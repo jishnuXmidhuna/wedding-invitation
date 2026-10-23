@@ -11,17 +11,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // 2. DOOR SLIDING ANIMATION ACTION DISPATCHER
     openButton.addEventListener("click", () => {
         // Appends animation trigger class rules to the shutter panels
+        // This naturally triggers the smooth, 1.6s CSS transition layout transforms
         splashScreen.classList.add("open-active");
 
-        // Gracefully remove splash screen node components from active render stack 
+        // CLEANED UP INDEPENDENT MECHANIC:
+        // We let CSS do 100% of the visual heavy lifting (opacity and visibility transformations).
+        // The timeout now strictly acts as a layout state manager to unlock user scrolling.
         setTimeout(() => {
-            splashScreen.style.opacity = "0";
-            splashScreen.style.visibility = "hidden";
             document.body.style.overflow = "auto"; // Unlock scroll inputs completely
             
             // Fire initial scroll calculations instantly upon opening viewport
             revealSections(); 
-        }, 1600); // Perfectly synced to match CSS transition timings
+        }, 1600); // Perfectly synced to match the peak door sweep completion time
     });
 
     // 3. TARGET WEDDING COUNTDOWN MATRIX CLOCK ENGINE
@@ -32,7 +33,8 @@ document.addEventListener("DOMContentLoaded", () => {
         const difference = weddingDate - now;
 
         if (difference < 0) {
-            document.querySelector(".countdown-section h2").textContent = "The Big Day Has Arrived!";
+            const countdownHeader = document.querySelector(".countdown-section h2");
+            if (countdownHeader) countdownHeader.textContent = "The Big Day Has Arrived!";
             return;
         }
 
@@ -58,7 +60,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // 4. MUSIC CONTROLLER TRACKER
     let musicPlaying = false;
-    musicButton.addEventListener("click", () => {
+    musicButton.addEventListener("click", (event) => {
+        // FIXED PROPAGATION: Prevents clicking the music toggle button from triggering
+        // the underlying openButton click actions on the splash screen overlay.
+        event.stopPropagation();
+        
         musicPlaying = !musicPlaying;
         musicButton.textContent = musicPlaying ? "🔊" : "♪";
     });
