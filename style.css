@@ -34,18 +34,18 @@ body {
   position: relative;
 }
 
-/* FIXED RECONSTRUCTED OVERLAY FOR SHUTTER DOORS */
+/* FIXED FULL-SCREEN OVERLAY FOR SHUTTER DOORS */
 #splash-screen {
-  position: absolute; /* Replaced fixed to lock perfectly inside our viewport canvas */
+  position: fixed;
   top: 0;
-  left: 0;
+  left: 50%;
+  transform: translateX(-50%);
   width: 100%;
-  height: 100%;
+  max-width: 430px;
+  height: 100vh;
   z-index: 9999;
   overflow: hidden;
-  /* Added cubic-bezier timing functions to handle the soft fade-out at the end */
-  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), 
-              visibility 1.2s linear;
+  transition: opacity 0.8s ease, visibility 0.8s ease;
 }
 
 .door-container {
@@ -58,14 +58,12 @@ body {
 .door {
   position: absolute;
   top: 0;
-  width: 50.5%; /* Modified from 50% to create a 0.5% seam overlap preventing sub-pixel leaks */
+  width: 50%;
   height: 100%;
   background-color: #ede6db;
   box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.05);
-  /* Uses a premium slow-start, smooth-finish transition profile matching the video */
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1),
-              opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1) 0.3s;
-  will-change: transform, opacity;
+  transition: transform 1.6s cubic-bezier(0.77, 0, 0.175, 1);
+  will-change: transform;
 }
 
 .left-door {
@@ -79,12 +77,6 @@ body {
 }
 
 /* SHUTTER SLIDE INTERACTION TRIGGER TARGETS */
-#splash-screen.open-active {
-  opacity: 0;
-  visibility: hidden;
-  pointer-events: none;
-}
-
 #splash-screen.open-active .left-door {
   transform: translateX(-100%);
 }
@@ -102,25 +94,21 @@ body {
   opacity: 0.9;
 }
 
-/* Updated positioning rules to guarantee the lace aligns perfectly to the center opening seam */
-.left-lace { background-image: url('left-lace.png'); background-position: right center; }
-.right-lace { background-image: url('right-lace.png'); background-position: left center; }
+.left-lace { background-image: url('left-lace.png'); background-position: left center; }
+.right-lace { background-image: url('right-lace.png'); background-position: right center; }
 
 /* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
 .door-latch {
   position: absolute;
-  width: 152px; 
+  width: 152px; /* This will definitely control it now */
   height: 196px;
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
   z-index: 30;
   cursor: pointer;
-  /* Upgraded to hardware-accelerated transforms for 60fps tracking transitions */
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), 
-              opacity 1s cubic-bezier(0.25, 1, 0.5, 1);
-  box-sizing: border-box; 
-  will-change: transform, opacity;
+  transition: transform 0.4s cubic-bezier(0.25, 1, 0.5, 1), opacity 0.6s ease;
+  box-sizing: border-box; /* Force standardized scaling rules */
 }
 
 .latch-content {
@@ -134,8 +122,8 @@ body {
   align-items: center;
   justify-content: center;
   padding: 0px;
-  box-sizing: border-box; 
-  overflow: hidden; 
+  box-sizing: border-box; /* ADD THIS: Keeps dimensions absolute */
+  overflow: hidden; /* ⬅️ FIX 3: Cuts off any slight corner overflow from the image background */
 }
 
 .latch-frame {
@@ -146,27 +134,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  box-sizing: border-box; 
-  overflow: hidden; 
+  box-sizing: border-box; /* ADD THIS: Keeps dimensions absolute */
+  overflow: hidden; /* ⬅️ FIX 4: Mandates clean rounding on the dashed inner layer */
 }
 
 .latch-artwork {
-  width: 90%;       
-  height: 90%;      
-  object-fit: cover; 
-  border-radius: 50% / 42%; 
-}
-
-/* MODIFIED: Medallion now hitches a ride to the left matching the left door translation */
-#splash-screen.open-active .door-latch {
-  opacity: 0;
-  transform: translate(-250%, -50%); /* Moves left at the exact speed ratio of the parting doors */
-}
-
-#splash-screen.open-active .door-latch {
-  opacity: 0;
-  transform: translate(-50%, -50%) scale(0.7);
-  pointer-events: none;
+  width: 90%;       /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
+  height: 90%;      /* ⬅️ CHANGE: Changed from 80% to 100% to fill the oval */
+  object-fit: cover; /* ⬅️ CHANGE: Changed from contain to cover so it fills the oval boundaries completely */
+  border-radius: 50% / 42%; /* Locks your PNG image into the exact oval curvature */
 }
 
 /* SCROLL PROMPT ANIMATION MECHANICS */
