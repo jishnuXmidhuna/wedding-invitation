@@ -98,7 +98,6 @@ body {
 .right-lace { background-image: url('right-lace.png'); background-position: right center; }
 
 /* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
-/* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
 .door-latch {
   position: absolute;
   width: 152px; 
@@ -108,9 +107,8 @@ body {
   transform: translate(-50%, -50%);
   z-index: 30;
   cursor: pointer;
-  /* Hardware optimization added here */
   transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity; 
+  will-change: transform, opacity; /* ⬅️ ADD THIS LINE */
   box-sizing: border-box; 
 }
 
