@@ -97,64 +97,6 @@ body {
 .left-lace { background-image: url('left-lace.png'); background-position: left center; }
 .right-lace { background-image: url('right-lace.png'); background-position: right center; }
 
-/* REVISED OVAL SPLIT MEDALLION BUTTON SIGNATURE */
-.door-latch {
-  position: absolute;
-  width: 152px; 
-  height: 196px;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 30;
-  cursor: pointer;
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity; /* ⬅️ ADD THIS LINE */
-  box-sizing: border-box; 
-}
-
-.latch-content {
-  width: 100%;
-  height: 100%;
-  background: transparent;
-  border: 0px solid var(--border-color);
-  border-radius: 50% / 42%;
-  box-shadow: 0 8px 24px rgba(82, 74, 65, 0.12);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 0px;
-  box-sizing: border-box; 
-  overflow: hidden; 
-  /* Synced transition properties */
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity;
-}
-
-.latch-frame {
-  width: 100%;
-  height: 100%;
-  border: 0px dashed var(--gold);
-  border-radius: 50% / 42%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-sizing: border-box; 
-  overflow: hidden; 
-  /* Synced transition properties */
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity;
-}
-
-.latch-artwork {
-  width: 90%;       
-  height: 90%;      
-  object-fit: cover; 
-  border-radius: 50% / 42%; 
-  /* Synced transition properties */
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1), opacity 1.1s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform, opacity;
-}
-
 /* SCROLL PROMPT ANIMATION MECHANICS */
 .scroll-hint-btn {
   position: absolute;
