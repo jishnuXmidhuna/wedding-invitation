@@ -78,7 +78,6 @@ body {
   z-index: 1; /* ⬅️ ADD THIS: Lower index sends the right panel behind the left door */
 }
 
-
 /* SHUTTER SLIDE INTERACTION TRIGGER TARGETS */
 #splash-screen.open-active .left-door {
   transform: translateX(-100%);
