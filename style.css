@@ -147,6 +147,13 @@ body {
   border-radius: 50% / 42%; /* Locks your PNG image into the exact oval curvature */
 }
 
+/* ADD THIS NEW BLOCK AT THE BOTTOM OF YOUR CSS FILE */
+#splash-screen.open-active .door-latch {
+  opacity: 0;
+  transform: translate(-380%, -50%); 
+  pointer-events: none;
+}
+
 /* SCROLL PROMPT ANIMATION MECHANICS */
 .scroll-hint-btn {
   position: absolute;
