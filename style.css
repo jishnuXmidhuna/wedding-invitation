@@ -1,8 +1,10 @@
 :root{
-  --door:#f4efe7;
-  --door-dark:#ece5db;
-  --gold:#b89a6a;
-  --text:#5a4a3d;
+  --bg:#d9cec5;
+  --ivory:#f8f4ee;
+  --cream:#fcf8f2;
+  --gold:#b28a5d;
+  --gold-light:#d9bf90;
+  --text:#4e3a25;
 }
 
 *{
@@ -11,25 +13,33 @@
   box-sizing:border-box;
 }
 
-html,
-body{
-  width:100%;
-  height:100%;
-  overflow:hidden;
+html{
+  scroll-behavior:smooth;
 }
 
 body{
-  background:#f2ede6;
+  background:var(--bg);
+  color:var(--text);
+  overflow-x:hidden;
   font-family:"Cormorant Garamond",serif;
 }
 
-/* INTRO */
+main{
+  max-width:430px;
+  margin:auto;
+  background:var(--cream);
+}
+
+/* ===========================
+   INTRO SCREEN
+=========================== */
 
 #intro-screen{
   position:fixed;
   inset:0;
-  background:#f4efe7;
   z-index:9999;
+  overflow:hidden;
+  background:#f3eee7;
 }
 
 .door-wrapper{
@@ -39,7 +49,9 @@ body{
   perspective:2500px;
 }
 
-/* DOORS */
+/* ===========================
+   DOORS
+=========================== */
 
 .door{
   position:absolute;
@@ -48,18 +60,25 @@ body{
   height:100%;
 
   background:
+    repeating-linear-gradient(
+      0deg,
+      rgba(255,255,255,.03) 0px,
+      rgba(255,255,255,.03) 2px,
+      transparent 2px,
+      transparent 4px
+    ),
     linear-gradient(
       135deg,
-      var(--door),
-      var(--door-dark)
+      #fbf7f1,
+      #eee5d9
     );
+
+  box-shadow:
+    inset 0 0 80px rgba(255,255,255,.85),
+    inset 0 0 18px rgba(0,0,0,.05);
 
   transition:
     transform 1.8s cubic-bezier(.65,0,.35,1);
-
-  box-shadow:
-    inset 0 0 60px rgba(255,255,255,.85),
-    inset 0 0 25px rgba(0,0,0,.04);
 }
 
 .left-door{
@@ -72,101 +91,144 @@ body{
   transform-origin:right center;
 }
 
-/* CENTER SEAM */
+/* ===========================
+   CENTER FOLD
+=========================== */
 
 .door-wrapper::after{
   content:"";
 
   position:absolute;
 
-  top:0;
   left:50%;
+  top:0;
 
-  width:4px;
+  width:8px;
   height:100%;
 
   transform:translateX(-50%);
 
   background:
-  linear-gradient(
-    to right,
-    rgba(0,0,0,.06),
-    rgba(255,255,255,.55),
-    rgba(0,0,0,.03)
-  );
+    linear-gradient(
+      to right,
+      rgba(0,0,0,.05),
+      rgba(255,255,255,.7),
+      rgba(0,0,0,.04)
+    );
 
-  z-index:10;
+  z-index:20;
 }
 
-/* LUXURY LACE FEEL */
+/* ===========================
+   LACE EFFECT
+=========================== */
 
 .lace-decoration{
   position:absolute;
   inset:0;
-
-  background:
-    radial-gradient(circle at 12% 20%, rgba(255,255,255,.7), transparent 30%),
-    radial-gradient(circle at 85% 35%, rgba(255,255,255,.45), transparent 25%),
-    radial-gradient(circle at 25% 80%, rgba(255,255,255,.55), transparent 30%);
-
-  opacity:.7;
+  pointer-events:none;
+  opacity:.95;
 }
 
-/* BUTTON */
+.left-door .lace-decoration::before{
+  content:"";
+
+  position:absolute;
+
+  left:20px;
+  top:30px;
+  bottom:30px;
+
+  width:120px;
+
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
+    radial-gradient(circle at 45% 22%, rgba(255,255,255,.75) 0 16px, transparent 17px),
+    radial-gradient(circle at 58% 36%, rgba(255,255,255,.85) 0 12px, transparent 13px),
+    radial-gradient(circle at 42% 50%, rgba(255,255,255,.9) 0 20px, transparent 21px),
+    radial-gradient(circle at 60% 67%, rgba(255,255,255,.8) 0 14px, transparent 15px),
+    radial-gradient(circle at 45% 82%, rgba(255,255,255,.9) 0 18px, transparent 19px);
+
+  filter:
+    drop-shadow(0 1px 0 rgba(255,255,255,.9))
+    drop-shadow(0 2px 3px rgba(0,0,0,.04));
+}
+
+.right-door .lace-decoration::before{
+  content:"";
+
+  position:absolute;
+
+  right:20px;
+  top:30px;
+  bottom:30px;
+
+  width:120px;
+
+  background:
+    radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
+    radial-gradient(circle at 55% 22%, rgba(255,255,255,.75) 0 16px, transparent 17px),
+    radial-gradient(circle at 42% 36%, rgba(255,255,255,.85) 0 12px, transparent 13px),
+    radial-gradient(circle at 58% 50%, rgba(255,255,255,.9) 0 20px, transparent 21px),
+    radial-gradient(circle at 40% 67%, rgba(255,255,255,.8) 0 14px, transparent 15px),
+    radial-gradient(circle at 55% 82%, rgba(255,255,255,.9) 0 18px, transparent 19px);
+
+  filter:
+    drop-shadow(0 1px 0 rgba(255,255,255,.9))
+    drop-shadow(0 2px 3px rgba(0,0,0,.04));
+}
+
+/* ===========================
+   OPEN BUTTON
+=========================== */
 
 #medallion-button{
   position:absolute;
 
-  left:50%;
   top:50%;
+  left:50%;
 
-  transform:
-  translate(-50%,-50%);
+  transform:translate(-50%,-50%);
 
   width:255px;
   height:72px;
 
+  border:none;
   border-radius:999px;
-  border:1px solid rgba(184,154,106,.35);
+
+  cursor:pointer;
+  overflow:hidden;
 
   background:
     linear-gradient(
       120deg,
       #fdf9f3,
-      #f4ecdf,
-      #fdf9f3
+      #f5ecdf,
+      #fffaf4
     );
 
-  cursor:pointer;
-
-  overflow:hidden;
-
   box-shadow:
-    0 18px 45px rgba(0,0,0,.08),
-    inset 0 1px 0 rgba(255,255,255,.85);
-
-  animation:
-    floating 3.4s ease-in-out infinite;
+    0 18px 40px rgba(0,0,0,.10),
+    inset 0 1px 0 rgba(255,255,255,.9);
 
   z-index:100;
+
+  animation:floating 3.5s ease-in-out infinite;
 }
 
 #medallion-button span{
   position:relative;
-
   z-index:2;
 
-  color:var(--text);
+  text-transform:uppercase;
+
+  letter-spacing:.28em;
 
   font-size:14px;
   font-weight:600;
 
-  letter-spacing:.28em;
-
-  text-transform:uppercase;
+  color:var(--text);
 }
-
-/* SHIMMER */
 
 #medallion-button::before{
   content:"";
@@ -180,54 +242,46 @@ body{
   height:140%;
 
   background:
-  linear-gradient(
-    90deg,
-    transparent,
-    rgba(255,255,255,.85),
-    transparent
-  );
+    linear-gradient(
+      90deg,
+      transparent,
+      rgba(255,255,255,.85),
+      transparent
+    );
 
   transform:skewX(-25deg);
 
-  animation:
-  shimmer 5s infinite;
+  animation:shimmer 5s infinite;
 }
 
 @keyframes shimmer{
-
-  0%{
+  from{
     left:-70%;
   }
-
-  100%{
+  to{
     left:150%;
   }
 }
 
-/* FLOATING BUTTON */
-
 @keyframes floating{
-
   0%,100%{
-    transform:
-    translate(-50%,-50%)
-    translateY(0);
+    transform:translate(-50%,-50%);
   }
 
   50%{
-    transform:
-    translate(-50%,-50%)
-    translateY(-5px);
+    transform:translate(-50%,-57%);
   }
 }
 
-/* MUSIC */
+/* ===========================
+   MUSIC BUTTON
+=========================== */
 
 #music-toggle{
   position:fixed;
 
-  right:22px;
   bottom:22px;
+  right:22px;
 
   width:60px;
   height:60px;
@@ -236,7 +290,7 @@ body{
   border-radius:50%;
 
   background:
-  rgba(255,255,255,.72);
+    rgba(255,255,255,.75);
 
   backdrop-filter:blur(14px);
 
@@ -247,7 +301,185 @@ body{
   cursor:pointer;
 
   box-shadow:
-    0 10px 24px rgba(0,0,0,.08);
+    0 12px 28px rgba(0,0,0,.08);
 
   z-index:10000;
+}
+
+/* ===========================
+   HERO
+=========================== */
+
+.hero-section{
+  min-height:100vh;
+
+  display:flex;
+  align-items:center;
+  justify-content:center;
+
+  padding:30px;
+}
+
+.arch-frame{
+  width:100%;
+
+  background:white;
+
+  border:1px solid #eadfd1;
+
+  border-radius:
+    220px 220px 24px 24px;
+
+  text-align:center;
+
+  padding:
+    90px
+    30px
+    50px;
+
+  box-shadow:
+    0 18px 50px rgba(0,0,0,.05);
+}
+
+.date-badge{
+  display:inline-block;
+
+  padding:10px 20px;
+
+  border-radius:999px;
+
+  border:1px solid #e0d1b8;
+
+  margin-bottom:25px;
+}
+
+.eyebrow{
+  font-size:12px;
+  letter-spacing:.35em;
+  margin-bottom:18px;
+}
+
+.couple-names{
+  font-size:62px;
+  font-weight:400;
+  line-height:.95;
+}
+
+.couple-names span{
+  display:block;
+  margin:10px 0;
+}
+
+.verse{
+  margin-top:28px;
+  font-size:18px;
+  line-height:1.8;
+}
+
+/* ===========================
+   CONTENT SECTIONS
+=========================== */
+
+.event-section,
+.countdown-section,
+.gallery-section,
+.story-section,
+.location-section,
+.closing-section{
+  min-height:100vh;
+  padding:90px 28px;
+  text-align:center;
+}
+
+h2{
+  font-size:48px;
+  font-weight:400;
+  margin-bottom:40px;
+}
+
+h3{
+  font-size:30px;
+  margin-bottom:8px;
+}
+
+.event-section p,
+.story-section p,
+.location-section p{
+  font-size:20px;
+  line-height:1.8;
+  margin:12px 0;
+}
+
+/* COUNTDOWN */
+
+.countdown-grid{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:16px;
+}
+
+.count-card{
+  background:white;
+  border-radius:24px;
+  padding:25px;
+  border:1px solid #ece2d4;
+}
+
+.count-card span{
+  display:block;
+  font-size:40px;
+  margin-bottom:8px;
+}
+
+/* GALLERY */
+
+.gallery-grid{
+  display:grid;
+  gap:18px;
+}
+
+.gallery-item{
+  height:260px;
+
+  border-radius:28px;
+
+  background:
+    linear-gradient(
+      135deg,
+      #ece0cf,
+      #d8cab7
+    );
+}
+
+/* LOCATION BUTTON */
+
+.location-section a{
+  display:inline-block;
+
+  margin-top:25px;
+
+  padding:16px 30px;
+
+  background:var(--gold);
+
+  color:white;
+
+  border-radius:999px;
+}
+
+/* MOBILE */
+
+@media(max-width:480px){
+
+  .couple-names{
+    font-size:52px;
+  }
+
+  h2{
+    font-size:40px;
+  }
+
+  .verse{
+    font-size:16px;
+  }
 }
