@@ -1,85 +1,98 @@
-// Elements
+/* =========================
+   ELEMENTS
+========================= */
+
 const introScreen = document.getElementById("intro-screen");
 const invitationContent = document.getElementById("invitation-content");
-const medallionButton = document.getElementById("medallion-button");
 
 const leftDoor = document.querySelector(".left-door");
 const rightDoor = document.querySelector(".right-door");
 
+const medallionButton = document.getElementById("medallion-button");
+
 const musicButton = document.getElementById("music-toggle");
 const music = document.getElementById("bgMusic");
 
-// Hide invitation initially
-invitationContent.style.display = "none";
+/* =========================
+   INITIAL STATE
+========================= */
 
-// Opening animation
-medallionButton.addEventListener("click", () => {
+if (invitationContent) {
+    invitationContent.style.display = "none";
+}
 
-    medallionButton.style.pointerEvents = "none";
+/* =========================
+   DOOR OPENING ANIMATION
+========================= */
 
-    medallionButton.animate(
-        [
-            {
-                transform: "translate(-50%, -50%) scale(1)"
-            },
-            {
-                transform: "translate(-50%, -50%) scale(0.94)"
-            }
-        ],
-        {
-            duration: 250,
-            fill: "forwards"
-        }
-    );
+if (medallionButton) {
 
-    // Open doors like real doors
-    setTimeout(() => {
+    medallionButton.addEventListener("click", () => {
 
-        leftDoor.style.transform =
-            "perspective(2200px) rotateY(-105deg)";
+        medallionButton.disabled = true;
 
-        rightDoor.style.transform =
-            "perspective(2200px) rotateY(105deg)";
+        /* Button fade */
+
+        medallionButton.style.transition =
+            "opacity .5s ease";
 
         medallionButton.style.opacity = "0";
 
-    }, 200);
+        /* Open like real doors */
 
-    // Reveal invitation
-    setTimeout(() => {
+        leftDoor.style.transform =
+            "perspective(2500px) rotateY(-115deg)";
 
-        introScreen.style.opacity = "0";
-        introScreen.style.transition = "opacity 0.8s ease";
+        rightDoor.style.transform =
+            "perspective(2500px) rotateY(115deg)";
 
-    }, 1400);
+        /* Remove intro screen */
 
-    setTimeout(() => {
+        setTimeout(() => {
 
-        introScreen.style.display = "none";
+            introScreen.style.transition =
+                "opacity 1s ease";
 
-        invitationContent.style.display = "block";
+            introScreen.style.opacity = "0";
 
-        invitationContent.style.opacity = "0";
-        invitationContent.style.transform = "translateY(20px)";
+        }, 1500);
 
-        requestAnimationFrame(() => {
+        /* Show invitation */
 
-            invitationContent.style.transition =
-                "opacity 1.2s ease, transform 1.2s ease";
+        setTimeout(() => {
 
-            invitationContent.style.opacity = "1";
+            introScreen.style.display = "none";
+
+            invitationContent.style.display =
+                "block";
+
+            invitationContent.style.opacity = "0";
+
             invitationContent.style.transform =
-                "translateY(0px)";
-        });
+                "translateY(30px)";
 
-    }, 2200);
+            requestAnimationFrame(() => {
 
-});
+                invitationContent.style.transition =
+                    "opacity 1.2s ease, transform 1.2s ease";
 
+                invitationContent.style.opacity =
+                    "1";
 
-/* -------------------- */
-/* COUNTDOWN */
-/* -------------------- */
+                invitationContent.style.transform =
+                    "translateY(0)";
+
+            });
+
+        }, 2400);
+
+    });
+
+}
+
+/* =========================
+   COUNTDOWN
+========================= */
 
 const weddingDate =
 new Date("2027-01-27T10:30:00").getTime();
@@ -90,28 +103,39 @@ function updateCountdown() {
 
     const distance = weddingDate - now;
 
-    if (distance < 0) {
+    if (distance <= 0) {
+
+        document.getElementById("days").textContent = "00";
+        document.getElementById("hours").textContent = "00";
+        document.getElementById("minutes").textContent = "00";
+        document.getElementById("seconds").textContent = "00";
+
         return;
     }
 
-    const days = Math.floor(
-        distance / (1000 * 60 * 60 * 24)
-    );
+    const days =
+        Math.floor(distance / (1000 * 60 * 60 * 24));
 
-    const hours = Math.floor(
-        (distance % (1000 * 60 * 60 * 24))
-        / (1000 * 60 * 60)
-    );
+    const hours =
+        Math.floor(
+            (distance % (1000 * 60 * 60 * 24))
+            /
+            (1000 * 60 * 60)
+        );
 
-    const minutes = Math.floor(
-        (distance % (1000 * 60 * 60))
-        / (1000 * 60)
-    );
+    const minutes =
+        Math.floor(
+            (distance % (1000 * 60 * 60))
+            /
+            (1000 * 60)
+        );
 
-    const seconds = Math.floor(
-        (distance % (1000 * 60))
-        / 1000
-    );
+    const seconds =
+        Math.floor(
+            (distance % (1000 * 60))
+            /
+            1000
+        );
 
     document.getElementById("days").textContent =
         String(days).padStart(2, "0");
@@ -130,103 +154,81 @@ updateCountdown();
 
 setInterval(updateCountdown, 1000);
 
-
-/* -------------------- */
-/* MUSIC */
-/* -------------------- */
+/* =========================
+   MUSIC
+========================= */
 
 let musicPlaying = false;
 
-musicButton.addEventListener("click", () => {
+if (musicButton) {
 
-    if (!music) return;
+    musicButton.addEventListener("click", () => {
 
-    if (musicPlaying) {
+        if (!music) return;
 
-        music.pause();
+        if (musicPlaying) {
 
-        musicPlaying = false;
+            music.pause();
 
-        musicButton.innerHTML = "♪";
+            musicButton.innerHTML = "♪";
 
-    } else {
+            musicPlaying = false;
 
-        music.play().catch(() => {});
+        } else {
 
-        musicPlaying = true;
+            music.play().catch(() => {});
 
-        musicButton.innerHTML = "♫";
-    }
-});
+            musicButton.innerHTML = "♫";
 
+            musicPlaying = true;
+        }
 
-/* -------------------- */
-/* SCROLL REVEAL */
-/* -------------------- */
+    });
+
+}
+
+/* =========================
+   REVEAL ON SCROLL
+========================= */
 
 const revealElements = document.querySelectorAll(
     ".event-section, .countdown-section, .gallery-section, .story-section, .location-section, .closing-section"
 );
 
-revealElements.forEach((element) => {
+revealElements.forEach((item) => {
 
-    element.style.opacity = "0";
-    element.style.transform = "translateY(40px)";
-    element.style.transition =
+    item.style.opacity = "0";
+    item.style.transform = "translateY(40px)";
+    item.style.transition =
         "all 1s cubic-bezier(.19,1,.22,1)";
+
 });
 
-function revealOnScroll() {
+function revealSections() {
 
-    revealElements.forEach((element) => {
+    revealElements.forEach((item) => {
 
-        const rect =
-            element.getBoundingClientRect();
+        const top =
+            item.getBoundingClientRect().top;
 
-        const visiblePoint =
+        const trigger =
             window.innerHeight * 0.85;
 
-        if (rect.top < visiblePoint) {
+        if (top < trigger) {
 
-            element.style.opacity = "1";
-            element.style.transform =
+            item.style.opacity = "1";
+
+            item.style.transform =
                 "translateY(0)";
         }
+
     });
+
 }
 
 window.addEventListener(
     "scroll",
-    revealOnScroll
+    revealSections
 );
 
-revealOnScroll();
-
-
-/* -------------------- */
-/* CTA FLOAT */
-/* -------------------- */
-
-if (medallionButton) {
-
-    medallionButton.animate(
-        [
-            {
-                transform:
-                "translate(-50%, -50%) translateY(0)"
-            },
-            {
-                transform:
-                "translate(-50%, -50%) translateY(-6px)"
-            },
-            {
-                transform:
-                "translate(-50%, -50%) translateY(0)"
-            }
-        ],
-        {
-            duration: 3400,
-            iterations: Infinity
-        }
-    );
-}
+revealSections();
