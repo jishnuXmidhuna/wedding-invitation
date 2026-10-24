@@ -1,27 +1,24 @@
 document.addEventListener("DOMContentLoaded", () => {
 
     const splashScreen = document.getElementById("splash-screen");
-    const openButton = document.getElementById("open-invitation");
     const musicButton = document.getElementById("music-toggle");
 
     // Lock scrolling until invitation opened
     document.body.style.overflow = "hidden";
 
-    // DOOR OPENING
-    openButton.addEventListener("click", () => {
+    // DOOR OPENING - Bound directly to the master container as specified
+    if (splashScreen) {
+        splashScreen.addEventListener("click", () => {
 
-        splashScreen.classList.add("open-active");
+            splashScreen.classList.add("open-active");
 
-        setTimeout(() => {
-            splashScreen.style.opacity = "0";
-            splashScreen.style.visibility = "hidden";
-            splashScreen.style.pointerEvents = "none";
-
-            document.body.style.overflow = "auto";
-
-            revealSections();
-        }, 1600);
-    });
+            // Let the premium 1.6s CSS transition handle the layout fade out naturally
+            setTimeout(() => {
+                document.body.style.overflow = "auto";
+                revealSections();
+            }, 1600);
+        });
+    }
 
     // COUNTDOWN TIMER
     const weddingDate = new Date("2026-12-06T10:30:00").getTime();
@@ -80,15 +77,20 @@ document.addEventListener("DOMContentLoaded", () => {
     // MUSIC BUTTON
     let musicPlaying = false;
 
-    musicButton.addEventListener("click", () => {
-        musicPlaying = !musicPlaying;
+    if (musicButton) {
+        musicButton.addEventListener("click", (e) => {
+            // Stops the click from bubbling up and triggering the door opening instantly
+            e.stopPropagation(); 
+            
+            musicPlaying = !musicPlaying;
 
-        if (musicPlaying) {
-            musicButton.textContent = "🔊";
-        } else {
-            musicButton.textContent = "♪";
-        }
-    });
+            if (musicPlaying) {
+                musicButton.textContent = "🔊";
+            } else {
+                musicButton.textContent = "♪";
+            }
+        });
+    }
 
     // SCROLL REVEAL ANIMATION
     const sections = document.querySelectorAll(".text-reveal-zone");
