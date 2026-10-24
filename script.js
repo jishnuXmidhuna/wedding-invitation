@@ -1,120 +1,232 @@
-document.addEventListener("DOMContentLoaded", () => {
+// Elements
+const introScreen = document.getElementById("intro-screen");
+const invitationContent = document.getElementById("invitation-content");
+const medallionButton = document.getElementById("medallion-button");
 
-    const splashScreen = document.getElementById("splash-screen");
-    const musicButton = document.getElementById("music-toggle");
+const leftDoor = document.querySelector(".left-door");
+const rightDoor = document.querySelector(".right-door");
 
-    // Lock scrolling until invitation opened
-    document.body.style.overflow = "hidden";
+const musicButton = document.getElementById("music-toggle");
+const music = document.getElementById("bgMusic");
 
-    // DOOR OPENING - Bound directly to the master container as specified
-    if (splashScreen) {
-        splashScreen.addEventListener("click", () => {
+// Hide invitation initially
+invitationContent.style.display = "none";
 
-            splashScreen.classList.add("open-active");
+// Opening animation
+medallionButton.addEventListener("click", () => {
 
-            // Let the premium 1.6s CSS transition handle the layout fade out naturally
-            setTimeout(() => {
-                document.body.style.overflow = "auto";
-                revealSections();
-            }, 1600);
-        });
-    }
+    medallionButton.style.pointerEvents = "none";
 
-    // COUNTDOWN TIMER
-    const weddingDate = new Date("2026-12-06T10:30:00").getTime();
-
-    function runCountdownTimer() {
-        const now = new Date().getTime();
-        const difference = weddingDate - now;
-
-        if (difference <= 0) {
-            document.getElementById("days").textContent = "00";
-            document.getElementById("hours").textContent = "00";
-            document.getElementById("minutes").textContent = "00";
-            document.getElementById("seconds").textContent = "00";
-            return;
-        }
-
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor(
-            (difference % (1000 * 60 * 60 * 24)) /
-            (1000 * 60 * 60)
-        );
-
-        const minutes = Math.floor(
-            (difference % (1000 * 60 * 60)) /
-            (1000 * 60)
-        );
-
-        const seconds = Math.floor(
-            (difference % (1000 * 60)) /
-            1000
-        );
-
-        document.getElementById("days").textContent =
-            String(days).padStart(2, "0");
-
-        document.getElementById("hours").textContent =
-            String(hours).padStart(2, "0");
-
-        document.getElementById("minutes").textContent =
-            String(minutes).padStart(2, "0");
-
-        document.getElementById("seconds").textContent =
-            String(seconds).padStart(2, "0");
-
-        const galleryCountdown = document.getElementById("gallery-countdown");
-
-        if (galleryCountdown) {
-            galleryCountdown.textContent =
-                `${days} days ${hours} hours remaining`;
-        }
-    }
-
-    runCountdownTimer();
-    setInterval(runCountdownTimer, 1000);
-
-    // MUSIC BUTTON
-    let musicPlaying = false;
-
-    if (musicButton) {
-        musicButton.addEventListener("click", (e) => {
-            // Stops the click from bubbling up and triggering the door opening instantly
-            e.stopPropagation(); 
-            
-            musicPlaying = !musicPlaying;
-
-            if (musicPlaying) {
-                musicButton.textContent = "🔊";
-            } else {
-                musicButton.textContent = "♪";
+    medallionButton.animate(
+        [
+            {
+                transform: "translate(-50%, -50%) scale(1)"
+            },
+            {
+                transform: "translate(-50%, -50%) scale(0.94)"
             }
+        ],
+        {
+            duration: 250,
+            fill: "forwards"
+        }
+    );
+
+    // Open doors like real doors
+    setTimeout(() => {
+
+        leftDoor.style.transform =
+            "perspective(2200px) rotateY(-105deg)";
+
+        rightDoor.style.transform =
+            "perspective(2200px) rotateY(105deg)";
+
+        medallionButton.style.opacity = "0";
+
+    }, 200);
+
+    // Reveal invitation
+    setTimeout(() => {
+
+        introScreen.style.opacity = "0";
+        introScreen.style.transition = "opacity 0.8s ease";
+
+    }, 1400);
+
+    setTimeout(() => {
+
+        introScreen.style.display = "none";
+
+        invitationContent.style.display = "block";
+
+        invitationContent.style.opacity = "0";
+        invitationContent.style.transform = "translateY(20px)";
+
+        requestAnimationFrame(() => {
+
+            invitationContent.style.transition =
+                "opacity 1.2s ease, transform 1.2s ease";
+
+            invitationContent.style.opacity = "1";
+            invitationContent.style.transform =
+                "translateY(0px)";
         });
-    }
 
-    // SCROLL REVEAL ANIMATION
-    const sections = document.querySelectorAll(".text-reveal-zone");
-
-    function revealSections() {
-        sections.forEach(section => {
-
-            const top = section.getBoundingClientRect().top;
-            const trigger = window.innerHeight * 0.85;
-
-            if (top < trigger) {
-                section.style.opacity = "1";
-                section.style.transform = "translateY(0)";
-            }
-        });
-    }
-
-    sections.forEach(section => {
-        section.style.opacity = "0";
-        section.style.transform = "translateY(50px)";
-        section.style.transition =
-            "opacity 1s ease, transform 1s ease";
-    });
-
-    window.addEventListener("scroll", revealSections);
+    }, 2200);
 
 });
+
+
+/* -------------------- */
+/* COUNTDOWN */
+/* -------------------- */
+
+const weddingDate =
+new Date("2027-01-27T10:30:00").getTime();
+
+function updateCountdown() {
+
+    const now = new Date().getTime();
+
+    const distance = weddingDate - now;
+
+    if (distance < 0) {
+        return;
+    }
+
+    const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
+
+    const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24))
+        / (1000 * 60 * 60)
+    );
+
+    const minutes = Math.floor(
+        (distance % (1000 * 60 * 60))
+        / (1000 * 60)
+    );
+
+    const seconds = Math.floor(
+        (distance % (1000 * 60))
+        / 1000
+    );
+
+    document.getElementById("days").textContent =
+        String(days).padStart(2, "0");
+
+    document.getElementById("hours").textContent =
+        String(hours).padStart(2, "0");
+
+    document.getElementById("minutes").textContent =
+        String(minutes).padStart(2, "0");
+
+    document.getElementById("seconds").textContent =
+        String(seconds).padStart(2, "0");
+}
+
+updateCountdown();
+
+setInterval(updateCountdown, 1000);
+
+
+/* -------------------- */
+/* MUSIC */
+/* -------------------- */
+
+let musicPlaying = false;
+
+musicButton.addEventListener("click", () => {
+
+    if (!music) return;
+
+    if (musicPlaying) {
+
+        music.pause();
+
+        musicPlaying = false;
+
+        musicButton.innerHTML = "♪";
+
+    } else {
+
+        music.play().catch(() => {});
+
+        musicPlaying = true;
+
+        musicButton.innerHTML = "♫";
+    }
+});
+
+
+/* -------------------- */
+/* SCROLL REVEAL */
+/* -------------------- */
+
+const revealElements = document.querySelectorAll(
+    ".event-section, .countdown-section, .gallery-section, .story-section, .location-section, .closing-section"
+);
+
+revealElements.forEach((element) => {
+
+    element.style.opacity = "0";
+    element.style.transform = "translateY(40px)";
+    element.style.transition =
+        "all 1s cubic-bezier(.19,1,.22,1)";
+});
+
+function revealOnScroll() {
+
+    revealElements.forEach((element) => {
+
+        const rect =
+            element.getBoundingClientRect();
+
+        const visiblePoint =
+            window.innerHeight * 0.85;
+
+        if (rect.top < visiblePoint) {
+
+            element.style.opacity = "1";
+            element.style.transform =
+                "translateY(0)";
+        }
+    });
+}
+
+window.addEventListener(
+    "scroll",
+    revealOnScroll
+);
+
+revealOnScroll();
+
+
+/* -------------------- */
+/* CTA FLOAT */
+/* -------------------- */
+
+if (medallionButton) {
+
+    medallionButton.animate(
+        [
+            {
+                transform:
+                "translate(-50%, -50%) translateY(0)"
+            },
+            {
+                transform:
+                "translate(-50%, -50%) translateY(-6px)"
+            },
+            {
+                transform:
+                "translate(-50%, -50%) translateY(0)"
+            }
+        ],
+        {
+            duration: 3400,
+            iterations: Infinity
+        }
+    );
+}
