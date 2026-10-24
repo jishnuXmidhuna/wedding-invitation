@@ -11,112 +11,178 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Cinzel:wght@400;500&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap"
+        rel="stylesheet">
 </head>
 
 <body>
 
-<!-- INTRO SCREEN -->
+    <!-- INTRO SCREEN -->
+    <section id="intro-screen">
 
-<section id="intro-screen">
+        <div class="door-wrapper">
 
-    <div class="intro-overlay"></div>
-
-    <div class="door-wrapper">
-
-        <div class="door left-door">
-            <div class="lace-decoration left"></div>
-        </div>
-
-        <div class="door right-door">
-            <div class="lace-decoration right"></div>
-        </div>
-
-        <button id="medallion-button">
-            <span>Tap To Open</span>
-        </button>
-
-    </div>
-
-</section>
-
-<!-- MUSIC -->
-
-<button id="music-toggle" aria-label="Toggle Music">
-    ♪
-</button>
-
-<!-- MAIN CONTENT -->
-
-<main id="invitation-content">
-
-    <!-- HERO -->
-
-    <section class="hero-section">
-
-        <div class="arch-frame">
-
-            <div class="date-badge">
-                27 • 01 • 2027
+            <div class="door left-door">
+                <div class="lace-decoration"></div>
             </div>
 
-            <p class="eyebrow">
-                WEDDING INVITATION
-            </p>
+            <div class="door right-door">
+                <div class="lace-decoration"></div>
+            </div>
 
-            <h1 class="couple-names">
-                Jishnu
-                <span>&</span>
-                Midhuna
-            </h1>
-
-            <p class="verse">
-                “Therefore what God has joined together,
-                let no one separate.”
-            </p>
+            <button id="medallion-button">
+                <span>Tap To Open</span>
+            </button>
 
         </div>
 
     </section>
 
+    <!-- MUSIC BUTTON -->
+    <button id="music-toggle" aria-label="Toggle Music">
+        ♪
+    </button>
 
-    <!-- DETAILS -->
+    <!-- MAIN CONTENT -->
+    <main id="invitation-content">
 
-    <section class="event-section">
+        <!-- HERO -->
+        <section class="hero-section">
 
-        <h2>Ceremony</h2>
+            <div class="arch-frame">
 
-        <p>Wednesday, January 27, 2027</p>
-        <p>10:30 AM</p>
-        <p>Sana Hall, Kollam</p>
+                <div class="date-badge">
+                    27 • 01 • 2027
+                </div>
 
-    </section>
+                <p class="eyebrow">
+                    WEDDING INVITATION
+                </p>
 
+                <h1 class="couple-names">
+                    Jishnu
+                    <span>&</span>
+                    Midhuna
+                </h1>
 
-    <!-- COUNTDOWN -->
+                <p class="verse">
+                    “Therefore what God has joined together,
+                    let no one separate.”
+                </p>
 
-    <section class="countdown-section">
-
-        <h2>Countdown</h2>
-
-        <div class="countdown-grid">
-
-            <div class="count-card">
-                <span id="days">00</span>
-                <small>Days</small>
             </div>
 
-            <div class="count-card">
-                <span id="hours">00</span>
-                <small>Hours</small>
+        </section>
+
+        <!-- EVENT DETAILS -->
+        <section class="event-section">
+
+            <h2>Ceremony</h2>
+
+            <p>Wednesday, January 27, 2027</p>
+
+            <p>10:30 AM</p>
+
+            <p>Sana Hall, Kollam</p>
+
+        </section>
+
+        <!-- COUNTDOWN -->
+        <section class="countdown-section">
+
+            <h2>Countdown</h2>
+
+            <div class="countdown-grid">
+
+                <div class="count-card     <div class="count-card">
+                    <span id="hours">00</span>
+                    <small>Hours</small>
+                </div>
+
+                <div class="count-card">
+                    <span id="minutes">00</span>
+                    <small>Minutes</small>
+                </div>
+
+                <div class="count-card">
+                    <span id="seconds">00</span>
+                    <small>Seconds</small>
+                </div>
+
             </div>
 
-            <div class="count-card">
-                <span id="minutes">00</span>
-                <small>Minutes</small>
+        </section>
+
+        <!-- GALLERY -->
+        <section class="gallery-section">
+
+            <h2>Gallery</h2>
+
+            <div class="gallery-grid">
+
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+                <div class="gallery-item"></div>
+
             </div>
 
-            <div class="count-card">
-                <span id="seconds">00</span>
-                <small>Seconds</small>
+        </section>
+
+        <!-- STORY -->
+        <section class="story-section">
+
+            <h2>Our Story</h2>
+
+            <p>
+                A beautiful chapter begins as we celebrate our
+                journey together and look forward to a lifetime
+                of happiness, love, and cherished memories.
+            </p>
+
+        </section>
+
+        <!-- VENUE -->
+        <section class="location-section">
+
+            <h2>Venue</h2>
+
+            <h3>Sana Hall</h3>
+
+            <p>Kollam, Kerala</p>
+
+            https://maps.google.com/?q=Sana+Hall+Kollam
+                Open In Google Maps
+            </a>
+
+        </section>
+
+        <!-- CLOSING -->
+        <section class="closing-section">
+
+            <div class="arch-frame">
+
+                <h2>
+                    We Look Forward To Celebrating With You
+                </h2>
+
+                <p>
+                    Thank you for being part of our special day.
+                </p>
+
             </div>
+
+        </section>
+
+    </main>
+
+    <!-- BACKGROUND MUSIC -->
+    <audio id="bgMusic" loop>
+        audio/wedding.mp3
+    </audio>
+
+    <script src="script.js"></script>
+
+</body>
+</html>
