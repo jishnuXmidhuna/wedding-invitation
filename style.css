@@ -1,466 +1,436 @@
-:root {
-  --ivory: #f5f0e6;
-  --cream: #fbf9f4;
-  --gold: #bfa37a;
-  --text-dark: #524a41;
-  --text-light: #8a8073;
-  --border-color: #e5decb;
+:root{
+    --bg:#d9cec5;
+    --ivory:#fdf7ec;
+    --cream:#fbf6ef;
+    --gold:#b28a5d;
+    --gold-light:#d8bf90;
+    --text:#4e3a25;
 }
 
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
-html {
-  scroll-behavior: smooth;
+html{
+    scroll-behavior:smooth;
 }
 
-body {
-  background: #d4cbc2;
-  color: var(--text-dark);
-  font-family: 'Times New Roman', Times, serif;
-  overflow-x: hidden;
+body{
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+
+    font-family:
+    "Cormorant Garamond",
+    serif;
 }
 
-/* CONTAINER APP HOLDER FOR MOBILE SCREEN PROPORTIONS */
-#invitation-content {
-  width: 100%;
-  max-width: 430px;
-  margin: 0 auto;
-  background: var(--cream);
-  min-height: 100vh;
-  position: relative;
+/* ---------------- */
+/* INTRO SCREEN */
+/* ---------------- */
+
+#intro-screen{
+    position:fixed;
+    inset:0;
+    z-index:9999;
+
+    background:
+    radial-gradient(
+        circle at center,
+        #fdf9f2 0%,
+        #efe5d8 100%
+    );
+
+    overflow:hidden;
 }
 
-/* FIXED FULL-SCREEN OVERLAY FOR SHUTTER DOORS */
-#splash-screen {
-  position: fixed;
-  top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100%;
-  max-width: 430px;
-  height: 100vh;
-  z-index: 9999;
-  overflow: hidden;
-  transition: opacity 0.8s ease, visibility 0.8s ease;
+.door-wrapper{
+    position:relative;
+    width:100%;
+    height:100vh;
+    perspective:2200px;
 }
 
-.door-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
+/* DOORS */
+
+.door{
+    position:absolute;
+    top:0;
+    width:50%;
+    height:100vh;
+
+    background:
+    linear-gradient(
+        135deg,
+        #faf6ef 0%,
+        #f0e7da 100%
+    );
+
+    box-shadow:
+    inset 0 0 80px rgba(255,255,255,.7),
+    inset 0 0 10px rgba(0,0,0,.08);
+
+    transition:
+    transform 1.8s cubic-bezier(.65,0,.35,1);
 }
 
-/* SLIDING DOOR ELEMENT BEHAVIORS */
-.door {
-  position: absolute;
-  top: 0;
-  width: 50.5%; /* ⬅️ CHANGE: Prevents sub-pixel middle vertical seam line leaks */
-  height: 100%;
-  background-color: #ede6db;
-  box-shadow: inset 0 0 40px rgba(0, 0, 0, 0.05);
-  /* Upgraded curve to match the premium deceleration profile of the reference video */
-  transition: transform 1.6s cubic-bezier(0.25, 1, 0.5, 1);
-  will-change: transform;
+.left-door{
+    left:0;
+    transform-origin:left center;
 }
 
-.left-door {
-  left: 0;
-  border-right: 1px solid rgba(0, 0, 0, 0.06);
-  z-index: 2;
-  overflow: visible; /* ⬅️ CHANGE: Stops the door container from cutting off your graphic */
+.right-door{
+    right:0;
+    transform-origin:right center;
 }
 
-.right-door {
-  right: 0;
-  border-left: 1px solid rgba(0, 0, 0, 0.06);
-  z-index: 1; /* ⬅️ ADD THIS: Lower index sends the right panel behind the left door */
+/* EMBOSSED FEEL */
+
+.lace-decoration{
+    position:absolute;
+    inset:0;
+
+    background:
+    radial-gradient(circle at 20% 15%,rgba(255,255,255,.75),transparent 30%),
+    radial-gradient(circle at 80% 35%,rgba(255,255,255,.55),transparent 25%),
+    radial-gradient(circle at 30% 75%,rgba(255,255,255,.55),transparent 25%);
+
+    opacity:.8;
 }
 
-/* SHUTTER SLIDE INTERACTION TRIGGER TARGETS */
-#splash-screen.open-active {
-  opacity: 0;
-  visibility: hidden;
-  /* Softly fades the container away at the end of the door slide timeline */
-  transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s linear 1.6s;
+/* OPEN BUTTON */
+
+#medallion-button{
+    position:absolute;
+
+    left:50%;
+    top:50%;
+
+    transform:translate(-50%,-50%);
+
+    width:220px;
+    height:62px;
+
+    border-radius:999px;
+    border:1px solid rgba(178,138,93,.5);
+
+    background:
+    linear-gradient(
+        135deg,
+        #fdf7ec 0%,
+        #f5ead5 50%,
+        #fffaf1 100%
+    );
+
+    cursor:pointer;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 12px 30px rgba(0,0,0,.15),
+    inset 0 1px 0 rgba(255,255,255,.9);
+
+    animation:
+    buttonFloat 3.6s ease-in-out infinite;
+
+    z-index:50;
 }
 
-/* When the splash screen is tapped, slide the left door off-screen to the left */
-#splash-screen.open-active .left-door {
-  transform: translateX(-100%);
+#medallion-button span{
+    position:relative;
+    z-index:2;
+
+    letter-spacing:.18em;
+    text-transform:uppercase;
+
+    font-size:14px;
+    font-weight:600;
+
+    color:var(--text);
 }
 
-/* When the splash screen is tapped, slide the right door off-screen to the right */
-#splash-screen.open-active .right-door {
-  transform: translateX(100%);
+/* GOLD SHIMMER */
+
+#medallion-button::before{
+    content:"";
+
+    position:absolute;
+    top:-10%;
+    left:-60%;
+
+    width:40%;
+    height:120%;
+
+    background:
+    linear-gradient(
+        90deg,
+        transparent,
+        rgba(255,255,255,.7),
+        transparent
+    );
+
+    transform:skewX(-25deg);
+
+    animation:
+    shimmer 5s infinite;
 }
 
-/* SCROLL PROMPT ANIMATION MECHANICS */
-.scroll-hint-btn {
-  position: absolute;
-  left: 50%;
-  bottom: 80px;
-  transform: translateX(-50%);
-  color: var(--text-light);
-  font-size: 11px;
-  letter-spacing: 4px;
-  font-family: sans-serif;
-  pointer-events: none;
-  z-index: 20;
-  animation: floatHint 2.5s infinite ease-in-out;
+/* MUSIC BUTTON */
+
+#music-toggle{
+    position:fixed;
+
+    right:24px;
+    bottom:24px;
+
+    width:50px;
+    height:50px;
+
+    border:none;
+    border-radius:50%;
+
+    background:
+    rgba(255,248,240,.8);
+
+    backdrop-filter:blur(15px);
+
+    color:var(--text);
+
+    z-index:99999;
+
+    box-shadow:
+    0 10px 25px rgba(0,0,0,.12);
+
+    cursor:pointer;
 }
 
-@keyframes floatHint {
-  0%, 100% { opacity: 0.4; transform: translate(-50%, 0); }
-  50% { opacity: 1; transform: translate(-50%, -6px); }
+/* ---------------- */
+/* CONTENT */
+/* ---------------- */
+
+#invitation-content{
+    background:var(--cream);
 }
 
-#splash-screen.open-active .scroll-hint-btn {
-  opacity: 0;
+.hero-section{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    padding:32px;
 }
 
-/* FLOATING MUSIC WIDGET MECHANICS */
-#music-toggle {
-  position: absolute;
-  right: 24px;
-  bottom: 24px;
-  width: 46px;
-  height: 46px;
-  border-radius: 50%;
-  border: 1px solid var(--border-color);
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(4px);
-  font-size: 16px;
-  color: var(--text-dark);
-  cursor: pointer;
-  z-index: 99;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* ARCH */
+
+.arch-frame{
+    width:100%;
+    max-width:420px;
+
+    background:white;
+
+    border-radius:
+    220px 220px 24px 24px;
+
+    border:
+    1px solid #eadfd0;
+
+    text-align:center;
+
+    padding:
+    90px
+    30px
+    60px;
+
+    box-shadow:
+    0 20px 60px rgba(0,0,0,.04);
 }
 
-/* SECTION STRUCTURE AND ARCHE PROFILE DESIGNS */
-.hero-section, .calendar-section, .event-details, 
-.countdown-section, .location-section, .gallery-section, .closing-section {
-  min-height: 100vh;
-  padding: 40px 24px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+/* DATE */
+
+.date-badge{
+    display:inline-block;
+
+    border:
+    1px solid #e6d8bf;
+
+    padding:
+    10px 20px;
+
+    border-radius:999px;
+
+    margin-bottom:26px;
+
+    letter-spacing:.15em;
 }
 
-.arched-frame {
-  width: 100%;
-  min-height: calc(100vh - 80px);
-  background: white;
-  border: 1px solid var(--border-color);
-  border-top-left-radius: 200px;
-  border-top-right-radius: 200px;
-  text-align: center;
-  padding: 75px 24px 40px;
-  box-shadow: 0 12px 35px rgba(82, 74, 65, 0.03);
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
+/* SMALL TITLE */
+
+.eyebrow{
+    font-size:12px;
+    letter-spacing:.35em;
+    margin-bottom:24px;
 }
 
-/* COMPONENT ACCENTS TYPOGRAPHY */
-.section-badge {
-  font-size: 11px;
-  text-transform: uppercase;
-  letter-spacing: 3px;
-  color: var(--text-light);
-  margin-bottom: 20px;
+/* NAMES */
+
+.couple-names{
+    font-size:66px;
+    font-weight:400;
+    line-height:0.95;
 }
 
-.invitation-label {
-  text-transform: uppercase;
-  letter-spacing: 5px;
-  font-size: 11px;
-  color: var(--text-light);
-  margin-bottom: 20px;
+.couple-names span{
+    display:block;
+    margin:15px 0;
 }
 
-.couple-names {
-  font-size: 40px;
-  font-weight: 200;
-  color: var(--text-dark);
-  margin-bottom: 25px;
-  letter-spacing: 1px;
+/* QUOTE */
+
+.verse{
+    margin-top:30px;
+
+    line-height:1.9;
+
+    font-size:18px;
 }
 
-.scripture-verse {
-  font-style: italic;
-  font-size: 14px;
-  line-height: 1.8;
-  color: var(--text-light);
-  max-width: 80%;
-  margin-bottom: 40px;
+/* SECTIONS */
+
+.event-section,
+.countdown-section,
+.gallery-section,
+.story-section,
+.location-section,
+.closing-section{
+
+    min-height:100vh;
+
+    padding:
+    100px
+    28px;
+
+    text-align:center;
 }
 
-/* FAMILY BLOCKS LAYOUT GRID */
-.family-hierarchy {
-  display: flex;
-  width: 100%;
-  justify-content: space-between;
-  margin-top: 20px;
-  border-top: 1px solid #f2edd6;
-  padding-top: 30px;
+h2{
+    font-size:48px;
+    font-weight:400;
+    margin-bottom:40px;
 }
 
-.family-side small {
-  font-size: 9px;
-  text-transform: uppercase;
-  letter-spacing: 2px;
-  color: var(--text-light);
-  display: block;
-  margin-bottom: 8px;
+.event-section p,
+.story-section p,
+.location-section p{
+    margin:15px 0;
+    font-size:20px;
 }
 
-.family-side p {
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-dark);
+/* COUNTDOWN */
+
+.countdown-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:18px;
 }
 
-.scroll-arrow-down {
-  position: absolute;
-  bottom: 30px;
-  font-size: 11px;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-light);
+.count-card{
+    background:white;
+
+    border-radius:24px;
+
+    padding:28px;
+
+    border:1px solid #ece2d4;
 }
 
-/* CALENDAR DATA VIEWS */
-.calendar-container {
-  margin: 30px 0;
-  text-align: center;
+.count-card span{
+    display:block;
+
+    font-size:42px;
+
+    margin-bottom:8px;
 }
 
-.calendar-header {
-  font-size: 16px;
-  letter-spacing: 4px;
-  text-transform: uppercase;
-  border-bottom: 1px solid var(--border-color);
-  padding-bottom: 12px;
-  margin-bottom: 15px;
+/* GALLERY */
+
+.gallery-grid{
+    display:grid;
+    gap:18px;
 }
 
-.calendar-date-display {
-  font-size: 84px;
-  font-weight: 100;
-  line-height: 1;
-  color: var(--text-dark);
+.gallery-item{
+    height:260px;
+
+    border-radius:28px;
+
+    background:
+    linear-gradient(
+        135deg,
+        #efe4d4,
+        #ddd0bd
+    );
 }
 
-.calendar-days-row {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 15px;
+/* VENUE BUTTON */
+
+.location-section a{
+    display:inline-block;
+
+    margin-top:30px;
+
+    text-decoration:none;
+
+    color:white;
+
+    background:var(--gold);
+
+    padding:
+    16px 28px;
+
+    border-radius:999px;
+
+    transition:.3s;
 }
 
-.day-pill {
-  padding: 6px 16px;
-  border-radius: 20px;
-  font-size: 12px;
-  border: 1px solid var(--border-color);
-  color: var(--text-light);
+.location-section a:hover{
+    transform:translateY(-2px);
 }
 
-.day-pill.active {
-  background: var(--gold);
-  color: white;
-  border-color: var(--gold);
+/* ANIMATIONS */
+
+@keyframes buttonFloat{
+
+    0%,100%{
+        transform:
+        translate(-50%,-50%)
+        translateY(0);
+    }
+
+    50%{
+        transform:
+        translate(-50%,-50%)
+        translateY(-6px);
+    }
 }
 
-.add-to-cal-btn {
-  background: transparent;
-  border: 1px solid var(--text-dark);
-  padding: 12px 24px;
-  font-size: 11px;
-  letter-spacing: 2px;
-  cursor: pointer;
-  margin-top: 30px;
-  color: var(--text-dark);
+@keyframes shimmer{
+
+    0%{
+        left:-60%;
+    }
+
+    100%{
+        left:140%;
+    }
 }
 
-/* LINE OF THE DAY TIMELINE DETAILS */
-h2 {
-  font-size: 28px;
-  font-weight: 300;
-  letter-spacing: 2px;
-  margin-bottom: 40px;
-}
+/* MOBILE FEEL */
 
-.timeline-event {
-  margin-bottom: 40px;
-  max-width: 85%;
-}
-
-.event-time {
-  font-size: 12px;
-  letter-spacing: 2px;
-  color: var(--gold);
-  display: block;
-  margin-bottom: 8px;
-}
-
-.timeline-event h3 {
-  font-size: 20px;
-  font-weight: 300;
-  margin-bottom: 10px;
-}
-
-.event-desc {
-  font-size: 13px;
-  color: var(--text-light);
-  line-height: 1.7;
-}
-
-.venue-subtext {
-  font-size: 12px;
-  margin-top: 6px;
-  color: var(--text-dark);
-}
-
-/* COUNTDOWN INTERFACE PROPORTIONS */
-.countdown-main-num span {
-  font-size: 72px;
-  font-weight: 100;
-  display: block;
-  line-height: 1;
-}
-
-.countdown-main-num small {
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--text-light);
-}
-
-.countdown-grid {
-  display: flex;
-  gap: 30px;
-  margin: 40px 0;
-}
-
-.countdown-item span {
-  font-size: 28px;
-  font-weight: 300;
-  display: block;
-}
-
-.countdown-item small {
-  font-size: 10px;
-  letter-spacing: 1px;
-  color: var(--text-light);
-}
-
-.romantic-footer {
-  font-style: italic;
-  font-size: 13px;
-  color: var(--text-light);
-}
-
-/* VENUE AREA MAP STYLING MOCKUP */
-.map-mock-container {
-  width: 100%;
-  height: 220px;
-  background: #f4f0e6;
-  border: 1px solid var(--border-color);
-  margin: 20px 0;
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.map-pin {
-  width: 16px;
-  height: 16px;
-  background: #c24b4b;
-  border-radius: 50%;
-  position: relative;
-}
-
-.map-pin::after {
-  content: '';
-  position: absolute;
-  width: 30px;
-  height: 30px;
-  border: 1px solid #c24b4b;
-  border-radius: 50%;
-  animation: pulsePin 2s infinite ease-out;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-@keyframes pulsePin {
-  0% { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
-  100% { transform: translate(-50%, -50%) scale(2); opacity: 0; }
-}
-
-.map-label {
-  position: absolute;
-  margin-top: 45px;
-  font-size: 13px;
-  font-weight: bold;
-}
-
-.location-btn {
-  display: inline-block;
-  border: 1px solid var(--text-dark);
-  padding: 12px 30px;
-  font-size: 11px;
-  letter-spacing: 3px;
-  text-decoration: none;
-  color: var(--text-dark);
-  margin-top: 20px;
-}
-
-/* GALLERY OVERLAY BLOCKS */
-.upload-placeholder-box {
-  width: 100%;
-  border: 1px dashed var(--border-color);
-  padding: 40px 20px;
-  background: #fafaf8;
-}
-
-.upload-placeholder-box p {
-  font-size: 14px;
-  line-height: 1.7;
-  color: var(--text-light);
-}
-
-.gallery-timer {
-  margin-top: 20px;
-  font-size: 12px;
-  color: var(--gold);
-  letter-spacing: 1px;
-}
-
-/* CLOSING FRAMES PAGE layout */
-.closing-msg {
-  font-size: 16px;
-  letter-spacing: 1px;
-  margin-bottom: 15px;
-  color: var(--text-light);
-}
-
-.final-date-stamp {
-  font-size: 11px;
-  letter-spacing: 3px;
-  color: var(--text-dark);
-  border-top: 1px solid var(--border-color);
-  padding-top: 15px;
-  margin-top: 20px;
-  width: 60%;
+main{
+    max-width:430px;
+    margin:auto;
 }
