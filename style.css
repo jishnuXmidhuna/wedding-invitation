@@ -88,25 +88,14 @@ body {
   transition: opacity 1.2s cubic-bezier(0.25, 1, 0.5, 1), visibility 1.2s linear 1.6s;
 }
 
-/* LACE OVERLAY ASSETS GRAPHICS MOCKUP */
-.lace-overlay {
-  position: absolute;
-  inset: 0;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.9;
+/* When the splash screen is tapped, slide the left door off-screen to the left */
+#splash-screen.open-active .left-door {
+  transform: translateX(-100%);
 }
 
-.left-lace { 
-  background-image: url('left-lace.png'); 
-  background-position: right center; /* Anchors the image right at the opening edge */
-  background-size: auto 100%;        /* Maintains actual asset dimensions without squishing */
-}
-
-.right-lace { 
-  background-image: url('right-lace.png'); 
-  background-position: left center;  /* Anchors the plain lace right at the opening edge */
-  background-size: auto 100%;        /* Maintains actual asset dimensions without squishing */
+/* When the splash screen is tapped, slide the right door off-screen to the right */
+#splash-screen.open-active .right-door {
+  transform: translateX(100%);
 }
 
 /* SCROLL PROMPT ANIMATION MECHANICS */
