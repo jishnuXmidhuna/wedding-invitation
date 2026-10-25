@@ -1,547 +1,208 @@
-:root{
-    --bg:#d9cec5;
-    --ivory:#f8f4ee;
-    --cream:#fcf8f2;
-    --gold:#b28a5d;
-    --gold-light:#d9bf90;
-    --text:#4e3a25;
+/* ==========================================================================
+   MODULE 1: FIXED MEDIA BACKGROUND & VIEWPORT RESETS
+   ========================================================================== */
+#splash-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  z-index: 1; /* Sits behind content stream once interactive sequence fires */
+  background-color: #d9cec5;
 }
 
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
+#splash-screen.gated-view {
+  z-index: 9999; /* Fully locks input focus before door swing activation */
 }
 
-html{
-    scroll-behavior:smooth;
-    scroll-snap-type:y mandatory;
+.video-canvas-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  max-width: 430px;
+  margin: 0 auto;
 }
 
-body{
-    background:var(--bg);
-    color:var(--text);
-    overflow-x:hidden;
-    font-family:"Cormorant Garamond",serif;
+#intro-door-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-section{
-    scroll-snap-align:start;
+.scroll-hint-btn {
+  position: absolute;
+  bottom: 15%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Cinzel', serif;
+  font-size: 0.85rem;
+  letter-spacing: 2px;
+  color: var(--text-light);
+  z-index: 10;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
 }
 
-main{
-    max-width:430px;
-    margin:auto;
-    background:var(--cream);
+/* ==========================================================================
+   MODULE 2: LAYERED CANVAS ENGINE & TYPOGRAPHY
+   ========================================================================== */
+#invitation-content {
+  max-width: 430px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2; /* Forces content to stay on top of the fixed background video */
+  pointer-events: none; /* Clicking through empty areas initializes the opening sequence */
 }
 
-/* ==================================
-   INTRO SCREEN
-================================== */
-
-#intro-screen{
-    position:fixed;
-    inset:0;
-    z-index:9999;
-    overflow:hidden;
-    background:#f3eee7;
+.hero-viewport-spacer {
+  width: 100%;
+  height: 100vh;
 }
 
-.door-wrapper{
-    position:relative;
-    width:100%;
-    height:100vh;
-
-    perspective:3000px;
-    perspective-origin:center center;
-
-    overflow:hidden;
+.scrolling-text-content {
+  width: 100%;
+  background: var(--ivory);
+  position: relative;
+  pointer-events: auto; /* Restores links/button inputs */
+  padding-bottom: env(safe-area-inset-bottom, 20px);
 }
 
-/* GOLDEN LIGHT */
-
-.door-light{
-    position:absolute;
-    inset:0;
-
-    opacity:0;
-
-    background:
-    radial-gradient(
-        circle at center,
-        rgba(255,245,220,.95) 0%,
-        rgba(255,228,170,.50) 40%,
-        transparent 80%
-    );
-
-    transition:opacity 1.8s ease;
-
-    z-index:2;
-    pointer-events:none;
+.main-hero {
+  padding-top: 40px;
+  background: transparent; /* Seamless blend directly over our open doors frame */
 }
 
-/* SHADOW */
-
-.door-shadow{
-    position:absolute;
-    inset:0;
-
-    opacity:0;
-
-    background:
-    radial-gradient(
-        ellipse at center,
-        rgba(0,0,0,.18),
-        transparent 70%
-    );
-
-    transition:opacity 1.8s ease;
-
-    z-index:1;
-    pointer-events:none;
+.scrolling-text-content section:not(.main-hero) {
+  background: var(--ivory);
+  border-bottom: 1px solid var(--border-color);
 }
 
-/* DOORS */
-
-.door{
-    position:absolute;
-    top:0;
-
-    width:50%;
-    height:100%;
-
-    transform-style:preserve-3d;
-    backface-visibility:hidden;
-
-    background:
-    linear-gradient(
-        135deg,
-        #fbf7f1,
-        #eee5d9
-    );
-
-    box-shadow:
-        inset 0 0 60px rgba(255,255,255,.8),
-        inset 0 0 15px rgba(0,0,0,.05);
-
-    transition:
-        transform 1.8s cubic-bezier(.65,0,.35,1);
+/* ARCHED TEXT CONTAINER STYLES */
+.arched-frame {
+  width: 100%;
+  border: 1px solid var(--border-color);
+  border-radius: 200px 200px 0 0;
+  padding: 55px 20px 40px 20px;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.25);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.left-door{
-    left:0;
-    transform-origin:left center;
+.couple-names {
+  font-family: 'Cinzel', serif;
+  font-size: 2.1rem;
+  font-weight: 300;
+  color: var(--text-dark);
+  margin: 18px 0;
 }
 
-.right-door{
-    right:0;
-    transform-origin:right center;
+.family-hierarchy {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 2rem;
+  border-top: 1px dashed var(--border-color);
+  padding-top: 1.5rem;
 }
 
-/* DOOR THICKNESS */
-
-.left-door::after,
-.right-door::after{
-    content:"";
-
-    position:absolute;
-    top:0;
-
-    width:12px;
-    height:100%;
-
-    background:#d9ccba;
+.family-side p span {
+  font-weight: bold;
 }
 
-.left-door::after{
-    right:-6px;
+/* TIMELINE EVENTS */
+.timeline-event {
+  width: 100%;
+  margin-bottom: 1rem;
+  text-align: left;
+  background: var(--card-bg);
+  padding: 1rem;
+  border-radius: 8px;
+  border-left: 3px solid var(--gold);
 }
 
-.right-door::after{
-    left:-6px;
+/* TIMER CARD DISPLAY */
+.countdown-grid {
+  display: flex;
+  gap: 0.5rem;
+  margin: 1rem 0;
 }
 
-/* CENTER SEAM */
-
-.door-wrapper::after{
-    content:"";
-
-    position:absolute;
-
-    left:50%;
-    top:0;
-
-    transform:translateX(-50%);
-
-    width:8px;
-    height:100%;
-
-    background:
-    linear-gradient(
-        to right,
-        rgba(0,0,0,.05),
-        rgba(255,255,255,.75),
-        rgba(0,0,0,.04)
-    );
-
-    z-index:20;
+.countdown-card {
+  background: var(--card-bg);
+  padding: 1.25rem 0.75rem;
+  border-radius: 6px;
+  min-width: 72px;
+  text-align: center;
 }
 
-/* ==================================
-   FLORAL LACE
-================================== */
-
-.lace-decoration{
-    position:absolute;
-    inset:0;
-    pointer-events:none;
-    opacity:.95;
+.countdown-card span {
+  display: block;
+  font-size: 1.5rem;
+  font-weight: bold;
 }
 
-.left-door .lace-decoration::before{
-    content:"";
-    position:absolute;
-
-    top:40px;
-    bottom:40px;
-    left:25px;
-
-    width:130px;
-
-    background:
-      radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
-      radial-gradient(circle at 40% 25%, rgba(255,255,255,.75) 0 18px, transparent 19px),
-      radial-gradient(circle at 55% 40%, rgba(255,255,255,.85) 0 12px, transparent 13px),
-      radial-gradient(circle at 45% 55%, rgba(255,255,255,.9) 0 20px, transparent 21px),
-      radial-gradient(circle at 60% 72%, rgba(255,255,255,.8) 0 16px, transparent 17px),
-      radial-gradient(circle at 50% 90%, rgba(255,255,255,.95) 0 18px, transparent 19px);
+/* QUIZ STYLES */
+.quiz-question-wrapper {
+  background: var(--card-bg);
+  padding: 1.5rem;
+  border-radius: 12px;
+  width: 100%;
 }
 
-.right-door .lace-decoration::before{
-    content:"";
-    position:absolute;
-
-    top:40px;
-    bottom:40px;
-    right:25px;
-
-    width:130px;
-
-    background:
-      radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
-      radial-gradient(circle at 60% 25%, rgba(255,255,255,.75) 0 18px, transparent 19px),
-      radial-gradient(circle at 45% 40%, rgba(255,255,255,.85) 0 12px, transparent 13px),
-      radial-gradient(circle at 55% 55%, rgba(255,255,255,.9) 0 20px, transparent 21px),
-      radial-gradient(circle at 40% 72%, rgba(255,255,255,.8) 0 16px, transparent 17px),
-      radial-gradient(circle at 50% 90%, rgba(255,255,255,.95) 0 18px, transparent 19px);
+.quiz-option-btn {
+  display: block;
+  width: 100%;
+  padding: 0.75rem;
+  margin: 0.625rem 0;
+  border: 1px solid var(--border-color);
+  background: white;
+  border-radius: 6px;
+  font-family: inherit;
+  cursor: pointer;
+  transition: background 0.3s, color 0.3s, border-color 0.3s;
 }
 
-/* ==================================
-   OPEN BUTTON
-================================== */
+.quiz-option-btn.correct { background: #d4edda !important; color: #155724; border-color: #c3e6cb; }
+.quiz-option-btn.wrong { background: #f8d7da !important; color: #721c24; border-color: #f5c6cb; }
 
-#medallion-button{
-    position:absolute;
-
-    top:50%;
-    left:50%;
-
-    transform:translate(-50%,-50%);
-
-    width:255px;
-    height:72px;
-
-    border:none;
-    border-radius:999px;
-
-    cursor:pointer;
-    overflow:hidden;
-
-    background:
-    linear-gradient(
-        120deg,
-        #fdf9f3,
-        #f5ecdf,
-        #fffaf4
-    );
-
-    box-shadow:
-        0 18px 40px rgba(0,0,0,.08),
-        inset 0 1px 0 rgba(255,255,255,.9);
-
-    z-index:100;
-
-    animation:floating 3.5s ease-in-out infinite;
+.direction-action-btn {
+  display: inline-block;
+  margin-top: 2rem;
+  background: var(--text-dark);
+  color: white;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: 'Cinzel', serif;
+  font-size: 0.8rem;
 }
 
-#medallion-button span{
-    position:relative;
-    z-index:2;
-
-    text-transform:uppercase;
-    letter-spacing:.28em;
-
-    font-size:14px;
-    font-weight:600;
-
-    color:var(--text);
+.map-mock-container {
+  width: 100%;
+  height: 190px;
+  background: var(--border-color);
+  border-radius: 8px;
+  margin-top: 1rem;
 }
 
-#medallion-button::before{
-    content:"";
-
-    position:absolute;
-
-    top:-20%;
-    left:-70%;
-
-    width:40%;
-    height:140%;
-
-    transform:skewX(-25deg);
-
-    background:
-    linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.85),
-        transparent
-    );
-
-    animation:shimmer 5s infinite;
+.upload-placeholder-box {
+  background: var(--card-bg);
+  padding: 30px 15px;
+  border-radius: 8px;
+  border: 1px dashed var(--gold);
 }
 
-@keyframes shimmer{
-    from{
-        left:-70%;
-    }
-
-    to{
-        left:150%;
-    }
+.scroll-arrow-down {
+  font-family: 'Cinzel', serif;
+  font-size: 0.7rem;
+  color: var(--gold);
+  margin-top: 1.5rem;
+  animation: gentleBounce 2s infinite;
 }
 
-@keyframes floating{
-
-    0%,100%{
-        transform:translate(-50%,-50%);
-    }
-
-    50%{
-        transform:translate(-50%,-57%);
-    }
-}
-
-/* ==================================
-   MUSIC BUTTON
-================================== */
-
-#music-toggle{
-    position:fixed;
-
-    right:22px;
-    bottom:22px;
-
-    width:60px;
-    height:60px;
-
-    border:none;
-    border-radius:50%;
-
-    background:rgba(255,255,255,.75);
-
-    backdrop-filter:blur(14px);
-
-    color:var(--text);
-    font-size:20px;
-
-    cursor:pointer;
-
-    box-shadow:
-        0 12px 28px rgba(0,0,0,.08);
-
-    z-index:10000;
-}
-
-/* ==================================
-   CINEMATIC SECTIONS
-================================== */
-
-.hero-section,
-.event-section,
-.countdown-section,
-.gallery-section,
-.story-section,
-.location-section,
-.closing-section{
-
-    min-height:100vh;
-
-    display:flex;
-    flex-direction:column;
-    justify-content:center;
-    align-items:center;
-
-    text-align:center;
-
-    padding:60px 28px;
-
-    opacity:0;
-
-    filter:blur(12px);
-
-    transform:translateY(40px);
-
-    transition:
-        opacity 1.6s ease,
-        transform 1.6s ease,
-        filter 1.6s ease;
-}
-
-.section-active{
-    opacity:1;
-    filter:blur(0);
-    transform:translateY(0);
-}
-
-/* CARD */
-
-.arch-frame{
-    width:100%;
-
-    background:white;
-
-    border:1px solid #eadfd1;
-
-    border-radius:
-        220px 220px 24px 24px;
-
-    padding:90px 30px 60px;
-
-    box-shadow:
-        0 18px 50px rgba(0,0,0,.05);
-}
-
-.date-badge{
-    display:inline-block;
-    padding:10px 20px;
-    border-radius:999px;
-    border:1px solid #e0d1b8;
-    margin-bottom:20px;
-}
-
-.eyebrow{
-    font-size:12px;
-    letter-spacing:.35em;
-}
-
-.couple-names{
-    font-size:62px;
-    font-weight:400;
-    line-height:.95;
-    margin-top:12px;
-}
-
-.couple-names span{
-    display:block;
-    margin:8px 0;
-}
-
-.verse{
-    margin-top:25px;
-    line-height:1.8;
-    font-size:18px;
-}
-
-/* TEXT REVEALS */
-
-h1,h2,h3,p,.date-badge{
-    opacity:0;
-    transform:translateY(25px);
-
-    transition:
-        opacity 1s ease,
-        transform 1s ease;
-}
-
-.section-active h1,
-.section-active h2,
-.section-active h3,
-.section-active p,
-.section-active .date-badge{
-    opacity:1;
-    transform:translateY(0);
-}
-
-/* COUNTDOWN */
-
-.countdown-grid{
-    display:grid;
-    grid-template-columns:repeat(2,1fr);
-    gap:16px;
-    width:100%;
-}
-
-.count-card{
-    background:white;
-    border:1px solid #ece2d4;
-    border-radius:24px;
-    padding:24px;
-}
-
-.count-card span{
-    display:block;
-    font-size:40px;
-}
-
-/* GALLERY */
-
-.gallery-grid{
-    width:100%;
-    display:grid;
-    gap:18px;
-}
-
-.gallery-item{
-    height:260px;
-
-    border-radius:28px;
-
-    background:
-    linear-gradient(
-        135deg,
-        #ece0cf,
-        #d8cab7
-    );
-}
-
-.location-section a{
-    display:inline-block;
-
-    margin-top:30px;
-
-    padding:16px 30px;
-
-    background:var(--gold);
-
-    color:#fff;
-
-    border-radius:999px;
-}
-
-/* MOBILE */
-
-@media(max-width:480px){
-
-    .couple-names{
-        font-size:52px;
-    }
-
-    h2{
-        font-size:40px;
-    }
-
-    .verse{
-        font-size:16px;
-    }
+@keyframes gentleBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
 }
