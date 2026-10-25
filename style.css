@@ -1,524 +1,547 @@
 :root{
-  --bg:#d9cec5;
-  --ivory:#f8f4ee;
-  --cream:#fcf8f2;
-  --gold:#b28a5d;
-  --gold-light:#d9bf90;
-  --text:#4e3a25;
+    --bg:#d9cec5;
+    --ivory:#f8f4ee;
+    --cream:#fcf8f2;
+    --gold:#b28a5d;
+    --gold-light:#d9bf90;
+    --text:#4e3a25;
 }
 
 *{
-  margin:0;
-  padding:0;
-  box-sizing:border-box;
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
 }
 
 html{
-  scroll-behavior:smooth;
+    scroll-behavior:smooth;
+    scroll-snap-type:y mandatory;
 }
 
 body{
-  background:var(--bg);
-  color:var(--text);
-  overflow-x:hidden;
-  font-family:"Cormorant Garamond",serif;
+    background:var(--bg);
+    color:var(--text);
+    overflow-x:hidden;
+    font-family:"Cormorant Garamond",serif;
+}
+
+section{
+    scroll-snap-align:start;
 }
 
 main{
-  max-width:430px;
-  margin:auto;
-  background:var(--cream);
+    max-width:430px;
+    margin:auto;
+    background:var(--cream);
 }
 
-/* ===========================
+/* ==================================
    INTRO SCREEN
-=========================== */
+================================== */
 
 #intro-screen{
-  position:fixed;
-  inset:0;
-  z-index:9999;
-  overflow:hidden;
-  background:#f3eee7;
+    position:fixed;
+    inset:0;
+    z-index:9999;
+    overflow:hidden;
+    background:#f3eee7;
 }
 
 .door-wrapper{
-  position:relative;
-  width:100%;
-  height:100vh;
+    position:relative;
+    width:100%;
+    height:100vh;
 
-  perspective:3000px;
-  perspective-origin:center center;
+    perspective:3000px;
+    perspective-origin:center center;
 
-  overflow:hidden;
+    overflow:hidden;
 }
 
-/* ===========================
-   DOORS
-=========================== */
+/* GOLDEN LIGHT */
 
-.door{
-  position:absolute;
-  top:0;
-  width:50%;
-  height:100%;
+.door-light{
+    position:absolute;
+    inset:0;
 
-  transform-style:preserve-3d;
-  backface-visibility:hidden;
+    opacity:0;
 
-  background:
-    linear-gradient(
-      135deg,
-      #fbf7f1,
-      #eee5d9
+    background:
+    radial-gradient(
+        circle at center,
+        rgba(255,245,220,.95) 0%,
+        rgba(255,228,170,.50) 40%,
+        transparent 80%
     );
 
-  transition:
-    transform 1.8s cubic-bezier(.65,0,.35,1);
+    transition:opacity 1.8s ease;
 
-  box-shadow:
-    inset 0 0 50px rgba(255,255,255,.8),
-    inset 0 0 15px rgba(0,0,0,.05);
+    z-index:2;
+    pointer-events:none;
 }
 
-  transition:
-    transform 1.8s cubic-bezier(.65,0,.35,1);
+/* SHADOW */
+
+.door-shadow{
+    position:absolute;
+    inset:0;
+
+    opacity:0;
+
+    background:
+    radial-gradient(
+        ellipse at center,
+        rgba(0,0,0,.18),
+        transparent 70%
+    );
+
+    transition:opacity 1.8s ease;
+
+    z-index:1;
+    pointer-events:none;
 }
+
+/* DOORS */
+
+.door{
+    position:absolute;
+    top:0;
+
+    width:50%;
+    height:100%;
+
+    transform-style:preserve-3d;
+    backface-visibility:hidden;
+
+    background:
+    linear-gradient(
+        135deg,
+        #fbf7f1,
+        #eee5d9
+    );
+
+    box-shadow:
+        inset 0 0 60px rgba(255,255,255,.8),
+        inset 0 0 15px rgba(0,0,0,.05);
+
+    transition:
+        transform 1.8s cubic-bezier(.65,0,.35,1);
+}
+
+.left-door{
+    left:0;
+    transform-origin:left center;
+}
+
+.right-door{
+    right:0;
+    transform-origin:right center;
+}
+
+/* DOOR THICKNESS */
 
 .left-door::after,
 .right-door::after{
+    content:"";
 
-  content:"";
+    position:absolute;
+    top:0;
 
-  position:absolute;
+    width:12px;
+    height:100%;
 
-  top:0;
-
-  width:12px;
-  height:100%;
-
-  background:#d9ccba;
+    background:#d9ccba;
 }
 
 .left-door::after{
-  right:-6px;
+    right:-6px;
 }
 
 .right-door::after{
-  left:-6px;
+    left:-6px;
 }
 
-.door-shadow{
-
-  position:absolute;
-  inset:0;
-
-  opacity:0;
-
-  background:
-  radial-gradient(
-    ellipse at center,
-    rgba(0,0,0,.18),
-    transparent 70%
-  );
-
-  transition:
-    opacity 1.5s ease;
-
-  pointer-events:none;
-
-  z-index:1;
-}
-
-/* ===========================
-   CENTER FOLD
-=========================== */
+/* CENTER SEAM */
 
 .door-wrapper::after{
-  content:"";
+    content:"";
 
-  position:absolute;
+    position:absolute;
 
-  left:50%;
-  top:0;
+    left:50%;
+    top:0;
 
-  width:8px;
-  height:100%;
+    transform:translateX(-50%);
 
-  transform:translateX(-50%);
+    width:8px;
+    height:100%;
 
-  background:
+    background:
     linear-gradient(
-      to right,
-      rgba(0,0,0,.05),
-      rgba(255,255,255,.7),
-      rgba(0,0,0,.04)
+        to right,
+        rgba(0,0,0,.05),
+        rgba(255,255,255,.75),
+        rgba(0,0,0,.04)
     );
 
-  z-index:20;
+    z-index:20;
 }
 
-/* ===========================
-   LACE EFFECT
-=========================== */
+/* ==================================
+   FLORAL LACE
+================================== */
 
 .lace-decoration{
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  opacity:.95;
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+    opacity:.95;
 }
 
 .left-door .lace-decoration::before{
-  content:"";
+    content:"";
+    position:absolute;
 
-  position:absolute;
+    top:40px;
+    bottom:40px;
+    left:25px;
 
-  left:20px;
-  top:30px;
-  bottom:30px;
+    width:130px;
 
-  width:120px;
-
-  background:
-    radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
-    radial-gradient(circle at 45% 22%, rgba(255,255,255,.75) 0 16px, transparent 17px),
-    radial-gradient(circle at 58% 36%, rgba(255,255,255,.85) 0 12px, transparent 13px),
-    radial-gradient(circle at 42% 50%, rgba(255,255,255,.9) 0 20px, transparent 21px),
-    radial-gradient(circle at 60% 67%, rgba(255,255,255,.8) 0 14px, transparent 15px),
-    radial-gradient(circle at 45% 82%, rgba(255,255,255,.9) 0 18px, transparent 19px);
-
-  filter:
-    drop-shadow(0 1px 0 rgba(255,255,255,.9))
-    drop-shadow(0 2px 3px rgba(0,0,0,.04));
+    background:
+      radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
+      radial-gradient(circle at 40% 25%, rgba(255,255,255,.75) 0 18px, transparent 19px),
+      radial-gradient(circle at 55% 40%, rgba(255,255,255,.85) 0 12px, transparent 13px),
+      radial-gradient(circle at 45% 55%, rgba(255,255,255,.9) 0 20px, transparent 21px),
+      radial-gradient(circle at 60% 72%, rgba(255,255,255,.8) 0 16px, transparent 17px),
+      radial-gradient(circle at 50% 90%, rgba(255,255,255,.95) 0 18px, transparent 19px);
 }
 
 .right-door .lace-decoration::before{
-  content:"";
+    content:"";
+    position:absolute;
 
-  position:absolute;
+    top:40px;
+    bottom:40px;
+    right:25px;
 
-  right:20px;
-  top:30px;
-  bottom:30px;
+    width:130px;
 
-  width:120px;
-
-  background:
-    radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
-    radial-gradient(circle at 55% 22%, rgba(255,255,255,.75) 0 16px, transparent 17px),
-    radial-gradient(circle at 42% 36%, rgba(255,255,255,.85) 0 12px, transparent 13px),
-    radial-gradient(circle at 58% 50%, rgba(255,255,255,.9) 0 20px, transparent 21px),
-    radial-gradient(circle at 40% 67%, rgba(255,255,255,.8) 0 14px, transparent 15px),
-    radial-gradient(circle at 55% 82%, rgba(255,255,255,.9) 0 18px, transparent 19px);
-
-  filter:
-    drop-shadow(0 1px 0 rgba(255,255,255,.9))
-    drop-shadow(0 2px 3px rgba(0,0,0,.04));
+    background:
+      radial-gradient(circle at 50% 10%, rgba(255,255,255,.95) 0 8px, transparent 9px),
+      radial-gradient(circle at 60% 25%, rgba(255,255,255,.75) 0 18px, transparent 19px),
+      radial-gradient(circle at 45% 40%, rgba(255,255,255,.85) 0 12px, transparent 13px),
+      radial-gradient(circle at 55% 55%, rgba(255,255,255,.9) 0 20px, transparent 21px),
+      radial-gradient(circle at 40% 72%, rgba(255,255,255,.8) 0 16px, transparent 17px),
+      radial-gradient(circle at 50% 90%, rgba(255,255,255,.95) 0 18px, transparent 19px);
 }
 
-/* ===========================
+/* ==================================
    OPEN BUTTON
-=========================== */
+================================== */
 
 #medallion-button{
-  position:absolute;
+    position:absolute;
 
-  top:50%;
-  left:50%;
+    top:50%;
+    left:50%;
 
-  transform:translate(-50%,-50%);
+    transform:translate(-50%,-50%);
 
-  width:255px;
-  height:72px;
+    width:255px;
+    height:72px;
 
-  border:none;
-  border-radius:999px;
+    border:none;
+    border-radius:999px;
 
-  cursor:pointer;
-  overflow:hidden;
+    cursor:pointer;
+    overflow:hidden;
 
-  background:
+    background:
     linear-gradient(
-      120deg,
-      #fdf9f3,
-      #f5ecdf,
-      #fffaf4
+        120deg,
+        #fdf9f3,
+        #f5ecdf,
+        #fffaf4
     );
 
-  box-shadow:
-    0 18px 40px rgba(0,0,0,.10),
-    inset 0 1px 0 rgba(255,255,255,.9);
+    box-shadow:
+        0 18px 40px rgba(0,0,0,.08),
+        inset 0 1px 0 rgba(255,255,255,.9);
 
-  z-index:100;
+    z-index:100;
 
-  animation:floating 3.5s ease-in-out infinite;
+    animation:floating 3.5s ease-in-out infinite;
 }
 
 #medallion-button span{
-  position:relative;
-  z-index:2;
+    position:relative;
+    z-index:2;
 
-  text-transform:uppercase;
+    text-transform:uppercase;
+    letter-spacing:.28em;
 
-  letter-spacing:.28em;
+    font-size:14px;
+    font-weight:600;
 
-  font-size:14px;
-  font-weight:600;
-
-  color:var(--text);
+    color:var(--text);
 }
 
 #medallion-button::before{
-  content:"";
+    content:"";
 
-  position:absolute;
+    position:absolute;
 
-  top:-20%;
-  left:-70%;
+    top:-20%;
+    left:-70%;
 
-  width:40%;
-  height:140%;
+    width:40%;
+    height:140%;
 
-  background:
+    transform:skewX(-25deg);
+
+    background:
     linear-gradient(
-      90deg,
-      transparent,
-      rgba(255,255,255,.85),
-      transparent
+        90deg,
+        transparent,
+        rgba(255,255,255,.85),
+        transparent
     );
 
-  transform:skewX(-25deg);
-
-  animation:shimmer 5s infinite;
+    animation:shimmer 5s infinite;
 }
 
 @keyframes shimmer{
-  from{
-    left:-70%;
-  }
-  to{
-    left:150%;
-  }
+    from{
+        left:-70%;
+    }
+
+    to{
+        left:150%;
+    }
 }
 
 @keyframes floating{
-  0%,100%{
-    transform:translate(-50%,-50%);
-  }
 
-  50%{
-    transform:translate(-50%,-57%);
-  }
+    0%,100%{
+        transform:translate(-50%,-50%);
+    }
+
+    50%{
+        transform:translate(-50%,-57%);
+    }
 }
 
-/* ===========================
+/* ==================================
    MUSIC BUTTON
-=========================== */
+================================== */
 
 #music-toggle{
-  position:fixed;
+    position:fixed;
 
-  bottom:22px;
-  right:22px;
+    right:22px;
+    bottom:22px;
 
-  width:60px;
-  height:60px;
+    width:60px;
+    height:60px;
 
-  border:none;
-  border-radius:50%;
+    border:none;
+    border-radius:50%;
 
-  background:
-    rgba(255,255,255,.75);
+    background:rgba(255,255,255,.75);
 
-  backdrop-filter:blur(14px);
+    backdrop-filter:blur(14px);
 
-  color:var(--text);
+    color:var(--text);
+    font-size:20px;
 
-  font-size:20px;
+    cursor:pointer;
 
-  cursor:pointer;
+    box-shadow:
+        0 12px 28px rgba(0,0,0,.08);
 
-  box-shadow:
-    0 12px 28px rgba(0,0,0,.08);
-
-  z-index:10000;
+    z-index:10000;
 }
 
-/* ===========================
-   HERO
-=========================== */
+/* ==================================
+   CINEMATIC SECTIONS
+================================== */
 
-.hero-section{
-  min-height:100vh;
-
-  display:flex;
-  align-items:center;
-  justify-content:center;
-
-  padding:30px;
-}
-
-.arch-frame{
-  width:100%;
-
-  background:white;
-
-  border:1px solid #eadfd1;
-
-  border-radius:
-    220px 220px 24px 24px;
-
-  text-align:center;
-
-  padding:
-    90px
-    30px
-    50px;
-
-  box-shadow:
-    0 18px 50px rgba(0,0,0,.05);
-}
-
-.date-badge{
-  display:inline-block;
-
-  padding:10px 20px;
-
-  border-radius:999px;
-
-  border:1px solid #e0d1b8;
-
-  margin-bottom:25px;
-}
-
-.eyebrow{
-  font-size:12px;
-  letter-spacing:.35em;
-  margin-bottom:18px;
-}
-
-.couple-names{
-  font-size:62px;
-  font-weight:400;
-  line-height:.95;
-}
-
-.couple-names span{
-  display:block;
-  margin:10px 0;
-}
-
-.verse{
-  margin-top:28px;
-  font-size:18px;
-  line-height:1.8;
-}
-
-/* ===========================
-   CONTENT SECTIONS
-=========================== */
-
+.hero-section,
 .event-section,
 .countdown-section,
 .gallery-section,
 .story-section,
 .location-section,
 .closing-section{
-  min-height:100vh;
-  padding:90px 28px;
-  text-align:center;
+
+    min-height:100vh;
+
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:60px 28px;
+
+    opacity:0;
+
+    filter:blur(12px);
+
+    transform:translateY(40px);
+
+    transition:
+        opacity 1.6s ease,
+        transform 1.6s ease,
+        filter 1.6s ease;
 }
 
-h2{
-  font-size:48px;
-  font-weight:400;
-  margin-bottom:40px;
+.section-active{
+    opacity:1;
+    filter:blur(0);
+    transform:translateY(0);
 }
 
-h3{
-  font-size:30px;
-  margin-bottom:8px;
+/* CARD */
+
+.arch-frame{
+    width:100%;
+
+    background:white;
+
+    border:1px solid #eadfd1;
+
+    border-radius:
+        220px 220px 24px 24px;
+
+    padding:90px 30px 60px;
+
+    box-shadow:
+        0 18px 50px rgba(0,0,0,.05);
 }
 
-.event-section p,
-.story-section p,
-.location-section p{
-  font-size:20px;
-  line-height:1.8;
-  margin:12px 0;
+.date-badge{
+    display:inline-block;
+    padding:10px 20px;
+    border-radius:999px;
+    border:1px solid #e0d1b8;
+    margin-bottom:20px;
+}
+
+.eyebrow{
+    font-size:12px;
+    letter-spacing:.35em;
+}
+
+.couple-names{
+    font-size:62px;
+    font-weight:400;
+    line-height:.95;
+    margin-top:12px;
+}
+
+.couple-names span{
+    display:block;
+    margin:8px 0;
+}
+
+.verse{
+    margin-top:25px;
+    line-height:1.8;
+    font-size:18px;
+}
+
+/* TEXT REVEALS */
+
+h1,h2,h3,p,.date-badge{
+    opacity:0;
+    transform:translateY(25px);
+
+    transition:
+        opacity 1s ease,
+        transform 1s ease;
+}
+
+.section-active h1,
+.section-active h2,
+.section-active h3,
+.section-active p,
+.section-active .date-badge{
+    opacity:1;
+    transform:translateY(0);
 }
 
 /* COUNTDOWN */
 
 .countdown-grid{
-  display:grid;
-  grid-template-columns:repeat(2,1fr);
-  gap:16px;
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:16px;
+    width:100%;
 }
 
 .count-card{
-  background:white;
-  border-radius:24px;
-  padding:25px;
-  border:1px solid #ece2d4;
+    background:white;
+    border:1px solid #ece2d4;
+    border-radius:24px;
+    padding:24px;
 }
 
 .count-card span{
-  display:block;
-  font-size:40px;
-  margin-bottom:8px;
+    display:block;
+    font-size:40px;
 }
 
 /* GALLERY */
 
 .gallery-grid{
-  display:grid;
-  gap:18px;
+    width:100%;
+    display:grid;
+    gap:18px;
 }
 
 .gallery-item{
-  height:260px;
+    height:260px;
 
-  border-radius:28px;
+    border-radius:28px;
 
-  background:
+    background:
     linear-gradient(
-      135deg,
-      #ece0cf,
-      #d8cab7
+        135deg,
+        #ece0cf,
+        #d8cab7
     );
 }
 
-/* LOCATION BUTTON */
-
 .location-section a{
-  display:inline-block;
+    display:inline-block;
 
-  margin-top:25px;
+    margin-top:30px;
 
-  padding:16px 30px;
+    padding:16px 30px;
 
-  background:var(--gold);
+    background:var(--gold);
 
-  color:white;
+    color:#fff;
 
-  border-radius:999px;
+    border-radius:999px;
 }
 
 /* MOBILE */
 
 @media(max-width:480px){
 
-  .couple-names{
-    font-size:52px;
-  }
+    .couple-names{
+        font-size:52px;
+    }
 
-  h2{
-    font-size:40px;
-  }
+    h2{
+        font-size:40px;
+    }
 
-  .verse{
-    font-size:16px;
-  }
+    .verse{
+        font-size:16px;
+    }
 }
