@@ -5,6 +5,8 @@
 const introScreen = document.getElementById("intro-screen");
 const invitationContent = document.getElementById("invitation-content");
 
+const shadow = document.querySelector(".door-shadow");
+
 const leftDoor = document.querySelector(".left-door");
 const rightDoor = document.querySelector(".right-door");
 
@@ -41,10 +43,12 @@ if (medallionButton) {
         /* Open like real doors */
 
         leftDoor.style.transform =
-            "perspective(2500px) rotateY(-115deg)";
+"rotateY(-100deg)";
 
-        rightDoor.style.transform =
-            "perspective(2500px) rotateY(115deg)";
+rightDoor.style.transform =
+"rotateY(100deg)";
+
+shadow.style.opacity = "1";
 
         /* Remove intro screen */
 
