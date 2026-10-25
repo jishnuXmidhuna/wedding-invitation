@@ -5,15 +5,20 @@
 const introScreen = document.getElementById("intro-screen");
 const invitationContent = document.getElementById("invitation-content");
 
-const shadow = document.querySelector(".door-shadow");
-
 const leftDoor = document.querySelector(".left-door");
 const rightDoor = document.querySelector(".right-door");
 
-const medallionButton = document.getElementById("medallion-button");
+const shadow = document.querySelector(".door-shadow");
+const light = document.querySelector(".door-light");
 
-const musicButton = document.getElementById("music-toggle");
-const music = document.getElementById("bgMusic");
+const medallionButton =
+document.getElementById("medallion-button");
+
+const musicButton =
+document.getElementById("music-toggle");
+
+const music =
+document.getElementById("bgMusic");
 
 /* =========================
    INITIAL STATE
@@ -24,7 +29,7 @@ if (invitationContent) {
 }
 
 /* =========================
-   DOOR OPENING ANIMATION
+   DOOR OPENING
 ========================= */
 
 if (medallionButton) {
@@ -33,33 +38,41 @@ if (medallionButton) {
 
         medallionButton.disabled = true;
 
-        /* Button fade */
-
         medallionButton.style.transition =
             "opacity .5s ease";
 
         medallionButton.style.opacity = "0";
 
-        /* Open like real doors */
+        /* Open doors */
 
         leftDoor.style.transform =
-"rotateY(-100deg)";
+            "rotateY(-100deg)";
 
-rightDoor.style.transform =
-"rotateY(100deg)";
+        rightDoor.style.transform =
+            "rotateY(100deg)";
 
-shadow.style.opacity = "1";
+        /* Add depth */
 
-        /* Remove intro screen */
+        if (shadow) {
+            shadow.style.opacity = "1";
+        }
+
+        /* Golden light */
+
+        if (light) {
+            light.style.opacity = "1";
+        }
+
+        /* Fade intro */
 
         setTimeout(() => {
 
             introScreen.style.transition =
-                "opacity 1s ease";
+                "opacity 1.2s ease";
 
             introScreen.style.opacity = "0";
 
-        }, 1500);
+        }, 1600);
 
         /* Show invitation */
 
@@ -73,22 +86,21 @@ shadow.style.opacity = "1";
             invitationContent.style.opacity = "0";
 
             invitationContent.style.transform =
-                "translateY(30px)";
+                "translateY(20px)";
 
             requestAnimationFrame(() => {
 
                 invitationContent.style.transition =
-                    "opacity 1.2s ease, transform 1.2s ease";
+                    "opacity 1.5s ease, transform 1.5s ease";
 
                 invitationContent.style.opacity =
                     "1";
 
                 invitationContent.style.transform =
                     "translateY(0)";
-
             });
 
-        }, 2400);
+        }, 2800);
 
     });
 
@@ -117,29 +129,27 @@ function updateCountdown() {
         return;
     }
 
-    const days =
-        Math.floor(distance / (1000 * 60 * 60 * 24));
+    const days = Math.floor(
+        distance / (1000 * 60 * 60 * 24)
+    );
 
-    const hours =
-        Math.floor(
-            (distance % (1000 * 60 * 60 * 24))
-            /
-            (1000 * 60 * 60)
-        );
+    const hours = Math.floor(
+        (distance % (1000 * 60 * 60 * 24))
+        /
+        (1000 * 60 * 60)
+    );
 
-    const minutes =
-        Math.floor(
-            (distance % (1000 * 60 * 60))
-            /
-            (1000 * 60)
-        );
+    const minutes = Math.floor(
+        (distance % (1000 * 60 * 60))
+        /
+        (1000 * 60)
+    );
 
-    const seconds =
-        Math.floor(
-            (distance % (1000 * 60))
-            /
-            1000
-        );
+    const seconds = Math.floor(
+        (distance % (1000 * 60))
+        /
+        1000
+    );
 
     document.getElementById("days").textContent =
         String(days).padStart(2, "0");
@@ -156,7 +166,10 @@ function updateCountdown() {
 
 updateCountdown();
 
-setInterval(updateCountdown, 1000);
+setInterval(
+    updateCountdown,
+    1000
+);
 
 /* =========================
    MUSIC
@@ -192,47 +205,55 @@ if (musicButton) {
 }
 
 /* =========================
-   REVEAL ON SCROLL
+   CINEMATIC SCENE REVEALS
 ========================= */
 
-const revealElements = document.querySelectorAll(
-    ".event-section, .countdown-section, .gallery-section, .story-section, .location-section, .closing-section"
+const sections = document.querySelectorAll(
+
+`
+.hero-section,
+.event-section,
+.countdown-section,
+.gallery-section,
+.story-section,
+.location-section,
+.closing-section
+`
+
 );
 
-revealElements.forEach((item) => {
+const observer = new IntersectionObserver(
 
-    item.style.opacity = "0";
-    item.style.transform = "translateY(40px)";
-    item.style.transition =
-        "all 1s cubic-bezier(.19,1,.22,1)";
+(entries) => {
 
-});
+    entries.forEach(entry => {
 
-function revealSections() {
+        if (entry.isIntersecting) {
 
-    revealElements.forEach((item) => {
+            entry.target.classList.add(
+                "section-active"
+            );
 
-        const top =
-            item.getBoundingClientRect().top;
+        } else {
 
-        const trigger =
-            window.innerHeight * 0.85;
+            entry.target.classList.remove(
+                "section-active"
+            );
 
-        if (top < trigger) {
-
-            item.style.opacity = "1";
-
-            item.style.transform =
-                "translateY(0)";
         }
 
     });
 
+},
+
+{
+    threshold: 0.55
 }
 
-window.addEventListener(
-    "scroll",
-    revealSections
 );
 
-revealSections();
+sections.forEach(section => {
+
+    observer.observe(section);
+
+});
