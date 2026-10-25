@@ -1,217 +1,209 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<!doctype html>
+<html lang="en" translate="no">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="color-scheme" content="light only" />
+    <meta name="theme-color" content="#d9cec5" />
+    <meta name="description" content="Mark 10:9 – 'Therefore what God has joined together, let no one separate'" />
+    
+    <title>Ryan &amp; Sneha — Wedding Invitation</title>
 
-    <title>Jishnu &amp; Midhuna</title>
+    <!-- WebView Forced Dark-Mode Opt-Out Defense Matrix -->
+    <style>
+      :root, * { color-scheme: light only !important; }
+      @media (prefers-color-scheme: dark) {
+        :root, * { color-scheme: light only !important; }
+      }
+    </style>
 
-    <link rel="stylesheet" href="style.css">
+    <!-- Typography Baseline -->
+    <link rel="preconnect" href="https://googleapis.com" />
+    <link rel="preconnect" href="https://gstatic.com" crossorigin />
+    <link href="https://googleapis.com/css2?family=Cinzel:wght@300;400;500&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=Inter:wght@300;400;500&display=swap"
-        rel="stylesheet">
-</head>
-
-<body>
-
-    <!-- INTRO SCREEN -->
-
-    <section id="intro-screen">
-
-        <div class="door-wrapper">
-
-            <div class="door-shadow"></div>
-
-            <div class="door-light"></div>
-
-            <div class="door left-door">
-                <div class="lace-decoration"></div>
-            </div>
-
-            <div class="door right-door">
-                <div class="lace-decoration"></div>
-            </div>
-
-            <button id="medallion-button">
-                <span>TAP TO OPEN</span>
-            </button>
-
-        </div>
-
+    <!-- FIXED BACKDROP VIDEO REVEAL LAYER -->
+    <section id="splash-screen">
+      <div class="video-canvas-container">
+        <video 
+          id="intro-door-video" 
+          src="/themes/couple/luxury/intro.mp4" 
+          poster="/themes/couple/luxury/intro-poster.jpg" 
+          playsinline 
+          muted 
+          preload="auto">
+        </video>
+        <div class="scroll-hint-btn">TAP TO OPEN</div>
+        <button id="music-toggle" aria-label="Toggle Ambient Audio">♪</button>
+      </div>
     </section>
 
-    <!-- MUSIC -->
-
-    <button
-        id="music-toggle"
-        aria-label="Toggle Music">
-
-        ♪
-
-    </button>
-
-    <!-- INVITATION -->
-
+    <!-- VIEWPORT SCROLL LAYER -->
     <main id="invitation-content">
+      
+      <!-- Invisible Viewport Shield matching the opening video bounds -->
+      <div class="hero-viewport-spacer"></div>
 
-        <!-- HERO -->
-
-        <section class="hero-section">
-
-            <div class="arch-frame">
-
-                <div class="date-badge">
-                    27 • 01 • 2027
-                </div>
-
-                <p class="eyebrow">
-                    WEDDING INVITATION
-                </p>
-
-                <h1 class="couple-names">
-                    Jishnu
-                    <span>&amp;</span>
-                    Midhuna
-                </h1>
-
-                <p class="verse">
-                    “Therefore what God has joined together,
-                    let no one separate.”
-                </p>
-
+      <!-- SCROLLABLE TEXT OVERLAY LAYER -->
+      <div class="scrolling-text-content">
+        
+        <!-- Main Invitation Details (Blends seamlessly over the final video frame) -->
+        <section class="text-reveal-zone main-hero">
+          <p class="invitation-label">Wedding Invitation</p>
+          <h1 class="couple-names">Ryan &amp; Sneha</h1>
+          <p class="scripture-verse">"Therefore what God has joined together, let no one separate."</p>
+          
+          <div class="family-hierarchy">
+            <div class="family-side">
+              <small>Groom's Family</small>
+              <p>Paul &amp; Violet<br><span>DSOUZA</span></p>
             </div>
-
+            <div class="family-side">
+              <small>Bride's Family</small>
+              <p>Raphel &amp; Savamma<br><span>GEORGE</span></p>
+            </div>
+          </div>
+          
+          <div class="scroll-arrow-down">Scroll Down ▾</div>
         </section>
 
-        <!-- CEREMONY -->
-
-        <section class="event-section">
-
-            <h2>Ceremony</h2>
-
-            <p>Wednesday, January 27, 2027</p>
-
-            <p>10:30 AM</p>
-
-            <p>Sana Hall, Kollam</p>
-
+        <!-- INTERACTIVE WEDDING TRIVIA MODULE -->
+        <section class="text-reveal-zone quiz-section">
+          <div class="arched-frame">
+            <span class="section-badge">A Little Fun!</span>
+            <h2 class="section-title">How well do you know Ryan &amp; Sneha?</h2>
+            <div id="quiz-container">
+              <!-- Built programmatically by JavaScript -->
+            </div>
+          </div>
         </section>
 
-        <!-- COUNTDOWN -->
+        <!-- TIMELINE ORDER OF SERVICE -->
+        <section class="text-reveal-zone timeline-section">
+          <div class="arched-frame">
+            <span class="section-badge">Program</span>
+            <h2 class="section-title">Line of the Day</h2>
+            <div class="timeline-container" id="live-timeline-target">
+              <!-- Injected by JavaScript -->
+            </div>
+          </div>
+        </section>
 
-        <section class="countdown-section">
-
-            <h2>Countdown</h2>
-
+        <!-- COUNTDOWN TIMER GRID -->
+        <section class="text-reveal-zone countdown-section">
+          <div class="arched-frame">
+            <span class="section-badge">Time until we meet</span>
             <div class="countdown-grid">
-
-                <div class="count-card">
-                    <span id="days">00</span>
-                    <small>Days</small>
-                </div>
-
-                <div class="count-card">
-                    <span id="hours">00</span>
-                    <small>Hours</small>
-                </div>
-
-                <div class="count-card">
-                    <span id="minutes">00</span>
-                    <small>Minutes</small>
-                </div>
-
-                <div class="count-card">
-                    <span id="seconds">00</span>
-                    <small>Seconds</small>
-                </div>
-
+              <div class="countdown-card"><span id="days">00</span><small>DAYS</small></div>
+              <div class="countdown-card"><span id="hours">00</span><small>HOURS</small></div>
+              <div class="countdown-card"><span id="minutes">00</span><small>MINS</small></div>
+              <div class="countdown-card"><span id="seconds">00</span><small>SECS</small></div>
             </div>
-
+            <p class="countdown-footer" id="live-countdown-msg"></p>
+          </div>
         </section>
 
-        <!-- GALLERY -->
-
-        <section class="gallery-section">
-
-            <h2>Gallery</h2>
-
-            <div class="gallery-grid">
-
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-                <div class="gallery-item"></div>
-
+        <!-- MENU FEAST PROFILE -->
+        <section class="text-reveal-zone menu-section">
+          <div class="arched-frame">
+            <span class="section-badge">Dinner Menu</span>
+            <h2 class="section-title">The Wedding Feast</h2>
+            <div class="menu-container" id="live-menu-target">
+              <!-- Injected by JavaScript -->
             </div>
-
+          </div>
         </section>
 
-        <!-- STORY -->
-
-        <section class="story-section">
-
-            <h2>Our Story</h2>
-
-            <p>
-                A beautiful chapter begins as we celebrate our
-                journey together and look forward to a lifetime
-                of happiness, love and cherished memories.
-            </p>
-
-        </section>
-
-        <!-- VENUE -->
-
-        <section class="location-section">
-
-            <h2>Venue</h2>
-
-            <h3>Sana Hall</h3>
-
-            <p>Kollam, Kerala</p>
-
-            <a
-                href="https://maps.google.com/?q=Sana+Hall+Kollam"
-                target="_blank"
-                rel="noopener noreferrer">
-
-                Open In Google Maps
-
-            </a>
-
-        </section>
-
-        <!-- CLOSING -->
-
-        <section class="closing-section">
-
-            <div class="arch-frame">
-
-                <h2>
-                    We Look Forward To Celebrating With You
-                </h2>
-
-                <p>
-                    Thank you for being part of our special day.
-                </p>
-
+        <!-- HARİTA HUB BINDING -->
+        <section class="text-reveal-zone location-section">
+          <div class="arched-frame">
+            <span class="section-badge">Location</span>
+            <h2 class="section-title">Lotus Hall</h2>
+            <p class="address-text">Subhash Nagar, Andheri East, Mumbai, Maharashtra 400093, India</p>
+            <div class="map-mock-container">
+              <div class="map-surface"><div class="map-pin"></div></div>
             </div>
-
+            <a id="google-maps-link" href="#" target="_blank" class="direction-action-btn">GET DIRECTIONS</a>
+          </div>
         </section>
 
+        <!-- MOMENTS ALBUM WRAP -->
+        <section class="text-reveal-zone memory-section">
+          <div class="arched-frame">
+            <span class="section-badge" id="live-memory-title">Our favourite moments</span>
+            <p class="memory-desc">The most special stops we've gathered together.</p>
+            <div class="upload-placeholder-box">
+              <p>Photo &amp; video upload will be active on the day of the event.</p>
+              <div class="gallery-timer" id="gallery-countdown">Calculating remaining window...</div>
+            </div>
+          </div>
+        </section>
+
+      </div>
     </main>
 
-    <!-- MUSIC -->
-
-    <audio id="bgMusic" loop>
-        audio/wedding.mp3
-    </audio>
-
+    <!-- SOURCE NATIVE DATA MATRIX -->
+    <script id="invite-data" type="application/json">
+      {
+        "id": "1222",
+        "couple": { "names": "Ryan & Sneha" },
+        "event": {
+          "targetTimestamp": "2026-12-06T06:30:00",
+          "googleMapsUrl": "https://google.com",
+          "countdownMessage": "Two souls joining in a love as deep as the sea.",
+          "memoryTitle": "Our favourite moments"
+        },
+        "timelineItems": [
+          {
+            "time": "03:00 PM",
+            "title": "Nuptial Mass",
+            "description": "The official ceremony will begin together with our families and loved ones.\n\nHoly Family Church, Andheri - Kurla Road, Chakala, Gundavali, Andheri East, Mumbai, Maharashtra, India"
+          },
+          {
+            "time": "06:30 PM",
+            "title": "Reception",
+            "description": "Welcome drinks, short chats and a gentle transition into the celebration."
+          }
+        ],
+        "menuItems": [
+          { "name": "Welcome Cocktail", "description": "Little bites and drinks", "category": "Starter" },
+          { "name": "Signature Dish of the Night", "description": "The chef's main plate prepared for our night", "category": "Main Course" },
+          { "name": "Celebration Cake", "description": "A sweet finale to complete the celebration", "category": "Dessert" }
+        ],
+        "quiz": {
+          "questions": [
+            {
+              "prompt": "What drink does Ryan & Sneha love most?",
+              "options": ["Espresso Martini", "Mojito", "Gin Tonic", "Sangria"],
+              "correctIndex": 0
+            },
+            {
+              "prompt": "What's the best music genre for Ryan & Sneha?",
+              "options": ["Pop", "Jazz", "Electronic", "Rock"],
+              "correctIndex": 1
+            },
+            {
+              "prompt": "Where does Ryan & Sneha go on holiday?",
+              "options": ["Seaside", "Mountains", "City", "Camping"],
+              "correctIndex": 0
+            },
+            {
+              "prompt": "What does Ryan & Sneha eat in the mornings?",
+              "options": ["Menemen", "Simit", "Pancakes", "Eggs"],
+              "correctIndex": 0
+            },
+            {
+              "prompt": "What kind of film does Ryan & Sneha love?",
+              "options": ["Comedy", "Drama", "Action", "Documentary"],
+              "correctIndex": 0
+            }
+          ]
+        }
+      }
+    </script>
     <script src="script.js"></script>
-
-</body>
+  </body>
 </html>
