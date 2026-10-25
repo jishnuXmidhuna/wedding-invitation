@@ -46,7 +46,11 @@ main{
   position:relative;
   width:100%;
   height:100vh;
-  perspective:2500px;
+
+  perspective:3000px;
+  perspective-origin:center center;
+
+  overflow:hidden;
 }
 
 /* ===========================
@@ -59,36 +63,49 @@ main{
   width:50%;
   height:100%;
 
+  transform-style:preserve-3d;
+  backface-visibility:hidden;
+
   background:
-    repeating-linear-gradient(
-      0deg,
-      rgba(255,255,255,.03) 0px,
-      rgba(255,255,255,.03) 2px,
-      transparent 2px,
-      transparent 4px
-    ),
     linear-gradient(
       135deg,
       #fbf7f1,
       #eee5d9
     );
 
+  transition:
+    transform 1.8s cubic-bezier(.65,0,.35,1);
+
   box-shadow:
-    inset 0 0 80px rgba(255,255,255,.85),
-    inset 0 0 18px rgba(0,0,0,.05);
+    inset 0 0 50px rgba(255,255,255,.8),
+    inset 0 0 15px rgba(0,0,0,.05);
+}
 
   transition:
     transform 1.8s cubic-bezier(.65,0,.35,1);
 }
 
-.left-door{
-  left:0;
-  transform-origin:left center;
+.left-door::after,
+.right-door::after{
+
+  content:"";
+
+  position:absolute;
+
+  top:0;
+
+  width:12px;
+  height:100%;
+
+  background:#d9ccba;
 }
 
-.right-door{
-  right:0;
-  transform-origin:right center;
+.left-door::after{
+  right:-6px;
+}
+
+.right-door::after{
+  left:-6px;
 }
 
 /* ===========================
