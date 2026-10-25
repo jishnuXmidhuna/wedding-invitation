@@ -108,6 +108,28 @@ main{
   left:-6px;
 }
 
+.door-shadow{
+
+  position:absolute;
+  inset:0;
+
+  opacity:0;
+
+  background:
+  radial-gradient(
+    ellipse at center,
+    rgba(0,0,0,.18),
+    transparent 70%
+  );
+
+  transition:
+    opacity 1.5s ease;
+
+  pointer-events:none;
+
+  z-index:1;
+}
+
 /* ===========================
    CENTER FOLD
 =========================== */
