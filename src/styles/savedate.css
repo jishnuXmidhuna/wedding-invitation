@@ -1,0 +1,489 @@
+/* ===================================
+   SAVE DATE SCENE
+=================================== */
+
+.savedate-scene{
+
+    min-height:100dvh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    box-sizing:border-box;
+}
+
+
+/* ===================================
+   OUTER FRAME
+=================================== */
+
+.savedate-shell{
+
+    width:100%;
+
+    max-width:min(
+        100%,
+        480px
+    );
+
+    min-height:100%;
+
+    margin:0 auto;
+
+    box-sizing:border-box;
+
+    padding-top:
+        min(8svh, 70px);
+
+    padding-bottom:
+        min(8svh, 70px);
+
+    padding-left:17%;
+
+    padding-right:15%;
+}
+
+
+/* ===================================
+   CONTENT COLUMN
+=================================== */
+
+.savedate-content{
+
+    width:100%;
+
+    max-width:
+        clamp(
+            260px,
+            94%,
+            300px
+        );
+
+    margin:0 auto;
+
+    container-type:inline-size;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    transform:
+        translateX(8px)
+        translateY(-10px);
+}
+
+
+/* ===================================
+   DATE LABEL
+=================================== */
+
+.date-label{
+
+    color:#b28a5d;
+
+    letter-spacing:.3em;
+
+    font-weight:500;
+
+    font-size:
+        clamp(
+            10px,
+            3cqw,
+            16px
+        );
+
+    margin-bottom:
+        clamp(
+            12px,
+            4cqw,
+            24px
+        );
+}
+
+
+/* ===================================
+   MAIN DATE FRAME
+=================================== */
+
+.date-frame-wrapper{
+
+    position:relative;
+
+    width:min(
+        78cqw,
+        320px
+    );
+}
+
+.date-frame-image{
+
+    width:100%;
+
+    display:block;
+}
+
+.date-overlay{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+/* ===================================
+   DATE NUMBER
+=================================== */
+
+.date-number{
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-size:
+        clamp(
+            70px,
+            25cqw,
+            110px
+        );
+
+    color:#726351;
+
+    line-height:1;
+
+    transform:
+        translateX(2px)
+        translateY(-15px);
+}
+
+
+/* ===================================
+   MONTH
+=================================== */
+
+.date-month{
+
+    margin-top:
+        clamp(
+            4px,
+            1.5cqw,
+            10px
+        );
+
+    color:#726351;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-weight:600;
+
+    letter-spacing:.25em;
+
+    font-size:
+        clamp(
+            14px,
+            8cqw,
+            30px
+        );
+
+    transform:translateX(5px);
+}
+
+
+/* ===================================
+   YEAR
+=================================== */
+
+.date-year{
+
+    position:relative;
+
+    transform:
+        translateX(3.5px)
+        translateY(50px);
+
+    color:#726351;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-weight:600;
+
+    letter-spacing:.35em;
+
+    font-size:
+        clamp(
+            15px,
+            5cqw,
+            24px
+        );
+}
+
+
+/* ===================================
+   INFO FRAMES
+=================================== */
+
+.date-info{
+
+    margin-top:
+        clamp(
+            18px,
+            5cqw,
+            30px
+        );
+
+    display:flex;
+
+    justify-content:center;
+
+    gap:
+        clamp(
+            8px,
+            2cqw,
+            18px
+        );
+
+    width:100%;
+}
+
+.mini-frame{
+
+    position:relative;
+
+    width:min(
+        42cqw,
+        180px
+    );
+}
+
+.mini-frame-image{
+
+    width:100%;
+
+    display:block;
+}
+
+
+/* ===================================
+   TEXT INSIDE FRAMES
+=================================== */
+
+.mini-frame-text,
+.mini-frame-time{
+
+    position:absolute;
+
+    inset:0;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    color:#726351;
+}
+
+.mini-frame-text{
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            11px,
+            4cqw,
+            17px
+        );
+
+    font-weight:700;
+
+    letter-spacing:.1em;
+
+    transform: translateX(3px)
+                translateY(3px);
+}
+
+.mini-frame-time{
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-size:
+        clamp(
+            20px,
+            7cqw,
+            34px
+        );
+
+    font-weight:400;
+}
+
+
+/* ===================================
+   ADD TO CALENDAR BUTTON
+=================================== */
+
+.calendar-btn{
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:8px;
+
+    min-height:32px;
+
+    margin-top:24px;
+
+    padding:6px 18px;
+
+    box-sizing:border-box;
+
+    background:
+        linear-gradient(
+            #fffdfa 0%,
+            #f7f1e7 100%
+        );
+
+    border:1px solid #c9a961;
+
+    border-radius:999px;
+
+    color:#6b5842;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            10.5px,
+            3.1cqw,
+            12px
+        );
+
+    font-weight:600;
+
+    letter-spacing:.18em;
+
+    text-transform:uppercase;
+
+    text-decoration:none;
+
+    white-space:nowrap;
+
+    line-height:1.1;
+}
+
+.calendar-icon{
+
+    color:#c9a961;
+
+    display:inline-flex;
+
+    align-items:center;
+
+    justify-content:center;
+}
+
+
+/* ===================================
+   SCENE
+=================================== */
+
+.scene{
+
+    width:100%;
+
+    min-height:100dvh;
+
+    scroll-snap-align:start;
+
+    scroll-snap-stop:always;
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width:500px){
+
+    .savedate-shell{
+
+        padding-left:11%;
+
+        padding-right:11%;
+
+        padding-top:24px;
+
+        padding-bottom:64px;
+    } 
+
+   .savedate-content{
+
+        max-width:
+            clamp(
+                280px,
+                98%,
+                320px
+            );
+
+        transform:
+            translateX(1px)
+            translateY(10px);
+    }
+
+    .date-number{
+
+        font-size:92px;
+    }
+
+    .date-month{
+
+        font-size:20px;
+    }
+
+    .date-year{
+
+        font-size:18px;
+    }
+
+    .mini-frame-text{
+
+        font-size:13px;
+    }
+
+    .mini-frame-time{
+
+        font-size:24px;
+    }
+
+    .calendar-btn{
+
+        font-size:13px;
+    }
+}

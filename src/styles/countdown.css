@@ -1,0 +1,311 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+/* ===================================
+   PAGE 5
+=================================== */
+
+.countdown-scene{
+    min-height:100vh;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+
+    text-align:center;
+
+    padding:20px 16px;
+
+    box-sizing:border-box;
+}
+
+.countdown-shell{
+
+    width:100%;
+
+    max-width:min(
+        100%,
+        480px
+    );
+
+    margin:0 auto;
+
+    box-sizing:border-box;
+
+    padding-top:
+        min(
+            8svh,
+            70px
+        );
+
+    padding-bottom:
+        min(
+            8svh,
+            70px
+        );
+
+    padding-left:17%;
+
+    padding-right:15%;
+}
+
+.countdown-content{
+
+    width:100%;
+
+    max-width:
+        clamp(
+            260px,
+            94%,
+            300px
+        );
+
+    margin:0 auto;
+
+    container-type:inline-size;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    transform:translateY(20px);
+}
+
+/* LABEL */
+
+.countdown-label{
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-weight:600;
+
+    font-size:
+        clamp(
+            11px,
+            4cqw,
+            18px
+        );
+
+    letter-spacing:.34em;
+
+    color:#9b8360;
+}
+
+/* DIVIDER */
+
+.countdown-divider{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    gap:9px;
+
+    margin:clamp(16px,4vw,28px) auto
+            clamp(24px,5vw,40px);
+}
+
+/* LEFT LINE */
+
+.countdown-divider span:first-child{
+    width:70px;
+    height:2px;
+
+    background:linear-gradient(
+        to left,
+        rgba(178,138,93,0.45) 0%,
+        rgba(178,138,93,0.45) 75%,
+        transparent 100%
+    );
+}
+
+/* RIGHT LINE */
+
+.countdown-divider span:last-child{
+    width:70px;
+    height:2px;
+
+    background:linear-gradient(
+        to right,
+        rgba(178,138,93,0.45) 0%,
+        rgba(178,138,93,0.45) 75%,
+        transparent 100%
+    );
+}
+
+/* DAYS */
+
+.days-block{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+}
+
+.days-number{
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-size:
+        clamp(
+            60px,
+            35cqw,
+            110px
+        );
+
+    font-weight:400;
+
+    line-height:1;
+
+    color:#726351;
+}
+
+.days-label{
+    margin-top:clamp(6px,2vw,12px);
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    letter-spacing:.38em;
+
+    font-size:clamp(12px,3vw,18px);
+
+    color:#9b8360;
+}
+
+/* GRID */
+
+.countdown-grid{
+    margin-top:clamp(16px,4vw,28px);
+
+    display:flex;
+
+    justify-content:center;
+    align-items:flex-start;
+
+    gap:clamp(8px,2vw,16px);
+}
+
+.countdown-unit{
+    text-align:center;
+}
+
+.countdown-value{
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+     font-size:
+        clamp(
+            22px,
+            10cqw,
+            42px
+        );
+
+    color:#5c4f40;
+}
+
+.countdown-unit-label{
+    margin-top:6px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            9px,
+            3cqw,
+            16px
+        );
+
+    letter-spacing:.2em;
+
+    color:#9b8360;
+}
+
+.colon{
+    font-size:clamp(24px,6vw,42px);
+
+    color:#9b8360;
+
+    opacity:.5;
+}
+
+/* QUOTE */
+
+.countdown-quote{
+    width:100%;
+
+    max-width:360px;
+
+    margin:clamp(30px,6vw,50px) auto 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-style:italic;
+
+    font-size:clamp(16px,4vw,24px);
+
+    line-height:1.8;
+
+    color:#726351;
+}
+
+/* PAGE */
+
+.scene{
+    width:100%;
+
+    min-height:100dvh;
+
+    scroll-snap-align:start;
+
+    scroll-snap-stop:always;
+}
+
+/* ==========================================
+MOBILE
+=========================================== */
+
+@media (max-width:500px){
+
+    .countdown-shell{
+
+        padding-left:11%;
+
+        padding-right:11%;
+
+        padding-top:24px;
+
+        padding-bottom:64px;
+    }
+
+    .countdown-content{
+
+        max-width:350px;
+
+        transform:
+            translateX(0)
+            translateY(25px);
+    }
+
+    .days-number{
+
+        font-size:84px;
+    }
+
+    .countdown-value{
+
+        font-size:32px;
+    }
+
+    .countdown-quote{
+
+        font-size:18px;
+    }
+}

@@ -1,0 +1,379 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500&family=Cormorant+Garamond:wght@400;500;600;700&family=Pinyon+Script&display=swap');
+
+/* ===================================
+   CLOSING PAGE
+=================================== */
+
+.closing-scene{
+
+    min-height:100dvh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    box-sizing:border-box;
+}
+
+
+/* ===================================
+   SHELL
+=================================== */
+
+.closing-shell{
+
+    width:100%;
+
+    max-width:min(
+        100%,
+        480px
+    );
+
+    margin:0 auto;
+
+    box-sizing:border-box;
+
+    padding-top:
+        min(
+            8svh,
+            70px
+        );
+
+    padding-bottom:
+        min(
+            8svh,
+            70px
+        );
+
+    padding-left:17%;
+
+    padding-right:15%;
+}
+
+
+/* ===================================
+   CONTENT
+=================================== */
+
+.closing-content{
+
+    width:100%;
+
+    max-width:
+        clamp(
+            260px,
+            94%,
+            300px
+        );
+
+    margin:0 auto;
+
+    container-type:inline-size;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+
+/* ===================================
+   NAMES
+=================================== */
+
+.closing-names{
+
+    margin:0;
+
+    width:100%;
+
+    text-align:center;
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-size:
+        clamp(
+            30px,
+            12cqw,
+            42px
+        );
+
+    font-weight:400;
+
+    line-height:1.15;
+
+    color:#726351;
+
+    white-space:nowrap;
+}
+
+.closing-names span{
+
+    font-family:
+        "Pinyon Script",
+        cursive;
+
+    color:#b28a5d;
+
+    font-size:1em;
+
+    font-weight:400;
+
+    margin:0 4px;
+
+    position:relative;
+
+    top:-2px;
+}
+
+
+/* ===================================
+   TOP DIVIDER
+=================================== */
+
+.closing-divider{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    width:60%;
+
+    margin:
+        clamp(
+            18px,
+            4cqw,
+            30px
+        ) auto;
+}
+
+.closing-divider span:first-child{
+
+    flex:1;
+
+    height:1.2px;
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #b28a5d
+        );
+
+    opacity:.85;
+}
+
+.closing-divider span:last-child{
+
+    flex:1;
+
+    height:1.2px;
+
+    background:
+        linear-gradient(
+            270deg,
+            transparent,
+            #b28a5d
+        );
+
+    opacity:.85;
+}
+
+
+/* ===================================
+   MESSAGE
+=================================== */
+
+.closing-message{
+
+    width:100%;
+
+    max-width:360px;
+
+    margin:0 auto;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-style:italic;
+
+    font-size:
+        clamp(
+            18px,
+            7cqw,
+            28px
+        );
+
+    line-height:1.75;
+
+    color:#726351;
+}
+
+
+/* ===================================
+   PEARL DIVIDER
+=================================== */
+
+.pearl-divider{
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    width:min(
+        220px,
+        70%
+    );
+
+    margin:
+        clamp(
+            22px,
+            5cqw,
+            35px
+        ) auto
+        clamp(
+            18px,
+            4cqw,
+            24px
+        );
+}
+
+.pearl-line{
+
+    flex:1;
+
+    height:1px;
+
+    background:
+        linear-gradient(
+            to right,
+            transparent,
+            #c9a961,
+            transparent
+        );
+}
+
+.pearl{
+
+    width:13px;
+
+    height:13px;
+
+    margin:0 10px;
+
+    border-radius:50%;
+
+    background:
+        radial-gradient(
+            circle at 35% 28%,
+            #ffffff 0%,
+            #fffaf2 18%,
+            #f6e8d8 48%,
+            #e4cfb6 78%,
+            #c9ab8c 100%
+        );
+
+    box-shadow:
+        0 1.5px 3px rgba(120,96,70,.3),
+        inset 0 -2px 3px rgba(160,130,100,.26);
+}
+
+
+/* ===================================
+   DATE
+=================================== */
+
+.closing-date{
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-weight:600;
+
+    font-size:
+        clamp(
+            11px,
+            4cqw,
+            18px
+        );
+
+    letter-spacing:.28em;
+
+    text-transform:uppercase;
+
+    color:#8f6b42;
+}
+
+
+/* ===================================
+   PAGE
+=================================== */
+
+.scene{
+
+    width:100%;
+
+    min-height:100dvh;
+
+    scroll-snap-align:start;
+
+    scroll-snap-stop:always;
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width:500px){
+
+    .closing-shell{
+
+        padding-left:11%;
+
+        padding-right:11%;
+
+        padding-top:24px;
+
+        padding-bottom:64px;
+    }
+
+    .closing-content{
+
+        max-width:350px;
+
+        transform:
+            translateX(0)
+            translateY(20px);
+    }
+
+    .closing-names{
+
+        font-size:34px;
+    }
+
+    .closing-message{
+
+        font-size:20px;
+    }
+
+    .closing-date{
+
+        font-size:13px;
+    }
+}

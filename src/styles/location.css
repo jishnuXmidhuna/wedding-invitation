@@ -1,0 +1,394 @@
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:wght@400;500&family=Cormorant+Garamond:wght@400;500;600;700&display=swap');
+
+/* ===================================
+   LOCATION SCENE
+=================================== */
+
+.location-scene{
+
+    width:100%;
+
+    min-height:100dvh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    box-sizing:border-box;
+}
+
+
+/* ===================================
+   SHELL
+=================================== */
+
+.location-shell{
+
+    width:100%;
+
+    max-width:min(
+        100%,
+        480px
+    );
+
+    margin:0 auto;
+
+    box-sizing:border-box;
+
+    padding-top:
+        min(
+            8svh,
+            70px
+        );
+
+    padding-bottom:
+        min(
+            8svh,
+            70px
+        );
+
+    padding-left:17%;
+
+    padding-right:15%;
+}
+
+
+/* ===================================
+   CONTENT
+=================================== */
+
+.location-content{
+
+    width:100%;
+
+    max-width:
+        clamp(
+            260px,
+            94%,
+            330px
+        );
+
+    margin:0 auto;
+
+    container-type:inline-size;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+}
+
+
+/* ===================================
+   TITLE
+=================================== */
+
+.location-title{
+
+    margin:0 0 8px;
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-weight:400;
+
+    font-size:
+        clamp(
+            20px,
+            7cqw,
+            32px
+        );
+
+    color:#726351;
+}
+
+
+/* ===================================
+   MAP FRAME
+=================================== */
+
+.map-frame{
+
+    position:relative;
+
+    width:100%;
+
+    max-width:330px;
+
+    aspect-ratio:2 / 3;
+
+    margin:-38px auto 0;
+}
+
+.map-frame-image{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    object-fit:contain;
+
+    z-index:2;
+
+    pointer-events:none;
+}
+
+
+/* ===================================
+   MAP AREA
+=================================== */
+
+.map-area{
+
+    position:absolute;
+
+    overflow:hidden;
+
+    background:#eae0d0;
+
+    left:13.4%;
+
+    top:17.7%;
+
+    width:73.4%;
+
+    height:59.6%;
+
+    clip-path:polygon(
+        50% 0,
+        68% 5%,
+        84% 14%,
+        100% 29%,
+        100% 91%,
+        96% 97%,
+        86% 100%,
+        14% 100%,
+        4% 97%,
+        0 91%,
+        0 29%,
+        16% 14%,
+        32% 5%
+    );
+}
+
+.map-area iframe{
+
+    position:absolute;
+
+    inset:0;
+
+    width:100%;
+
+    height:100%;
+
+    border:0;
+}
+
+
+/* ===================================
+   MAP LINK
+=================================== */
+
+.map-overlay-link{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:10;
+
+    display:block;
+
+    cursor:pointer;
+}
+
+
+/* ===================================
+   HALL NAME
+=================================== */
+
+.hall-name{
+
+    position:absolute;
+
+    inset:79.8% 23.5% 10% 26%;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-weight:500;
+
+    color:#8f6b42;
+
+    font-size:
+        clamp(
+            12px,
+            4.5cqw,
+            18px
+        );
+
+    z-index:3;
+}
+
+
+/* ===================================
+   ADDRESS
+=================================== */
+
+.location-address{
+
+    width:100%;
+
+    max-width:300px;
+
+    margin:-15px auto 0;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            15px,
+            4.5cqw,
+            18px
+        );
+
+    line-height:1.4;
+
+    color:#726351;
+}
+
+
+/* ===================================
+   BUTTON
+=================================== */
+
+.directions-btn{
+
+    margin:14px auto 0;
+
+    width:min(
+        100%,
+        210px
+    );
+
+    min-height:48px;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    gap:8px;
+
+    border-radius:999px;
+
+    border:1.5px solid #c9a961;
+
+    background:
+        linear-gradient(
+            #fffdfa 0%,
+            #f7f1e7 100%
+        );
+
+    color:#6b5842;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            14px,
+            4cqw,
+            16px
+        );
+
+    letter-spacing:.18em;
+
+    font-weight:500;
+
+    cursor:pointer;
+}
+
+.directions-btn:hover{
+
+    transform:translateY(-2px);
+
+    box-shadow:
+        0 8px 18px rgba(125,92,46,.15);
+}
+
+.directions-btn:active{
+
+    transform:scale(.98);
+}
+
+
+/* ===================================
+   PAGE
+=================================== */
+
+.scene{
+
+    width:100%;
+
+    min-height:100dvh;
+
+    scroll-snap-align:start;
+
+    scroll-snap-stop:always;
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width:500px){
+
+    .location-shell{
+
+        padding-left:11%;
+
+        padding-right:11%;
+
+        padding-top:24px;
+
+        padding-bottom:64px;
+    }
+
+    .location-content{
+
+        max-width:350px;
+    }
+
+    .location-title{
+
+        font-size:24px;
+    }
+
+    .location-address{
+
+        font-size:16px;
+    }
+}

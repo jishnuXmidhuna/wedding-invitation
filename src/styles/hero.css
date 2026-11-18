@@ -1,0 +1,158 @@
+/* ===================================
+   HERO SCENE
+=================================== */
+
+.hero-scene{
+    min-height:100dvh;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+}
+
+
+/* ===================================
+   SHELL
+=================================== */
+
+.hero-shell{
+    width:100%;
+    max-width:560px;
+    min-height:100dvh;
+    margin:0 auto;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    padding-left:8%;
+    padding-right:8%;
+    box-sizing:border-box;
+}
+
+
+/* ===================================
+   CONTENT
+=================================== */
+
+.hero-content{
+    width:100%;
+    max-width:520px;
+    margin:0 auto;
+    container-type:inline-size;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
+
+/* ===================================
+   TEXT
+=================================== */
+
+.hero-text{
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    align-items:center;
+}
+
+
+/* ===================================
+   NAMES
+=================================== */
+
+.hero-name{
+    margin:0;
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-weight:400;
+
+    font-size:
+        clamp(
+            42px,
+            15cqw,
+            82px
+        );
+
+    line-height:1.05;
+
+    color:#726351;
+
+    white-space:nowrap;
+}
+
+
+/* ===================================
+   AND
+=================================== */
+
+.and{
+
+    display:inline-block;
+
+    font-family:
+        "Pinyon Script",
+        cursive;
+
+    font-size:
+        clamp(
+            48px,
+            12cqw,
+            80px
+        );
+
+    line-height:1;
+
+    padding-left:.34em;
+    padding-right:.34em;
+
+    margin:-0.08em 0;
+
+    background-image:
+        linear-gradient(
+            #b28a5d,
+            #b28a5d
+        );
+
+    background-clip:text;
+    -webkit-background-clip:text;
+
+    color:transparent;
+    -webkit-text-fill-color:transparent;
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width:600px){
+
+    .hero-shell{
+        padding-left:10%;
+        padding-right:10%;
+    }
+
+    .hero-name{
+
+        font-size:
+            clamp(
+                38px,
+                17cqw,
+                64px
+            );
+    }
+
+    .and{
+
+        font-size:
+            clamp(
+                42px,
+                12cqw,
+                68px
+            );
+    }
+}

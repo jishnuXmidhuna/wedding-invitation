@@ -1,0 +1,376 @@
+/* ===================================
+   PAGE 2
+=================================== */
+
+.details-scene{
+
+    min-height:100dvh;
+
+    display:flex;
+
+    justify-content:center;
+
+    align-items:center;
+
+    text-align:center;
+
+    box-sizing:border-box;
+}
+
+
+/* ===================================
+   OUTER FRAME
+=================================== */
+
+.details-shell{
+
+    width:100%;
+
+    max-width:min(100%, 480px);
+
+    min-height:100%;
+
+    margin:0 auto;
+
+    box-sizing:border-box;
+
+    padding-top:
+        min(8svh, 70px);
+
+    padding-bottom:
+        min(8svh, 70px);
+
+    padding-left:17%;
+
+    padding-right:15%;
+}
+
+
+/* ===================================
+   INNER CONTENT COLUMN
+=================================== */
+
+.details-content{
+
+    width:100%;
+
+    max-width:
+        clamp(
+            260px,
+            94%,
+            400px
+        );
+
+    margin:0 auto;
+
+    container-type:inline-size;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    transform: translateY(30px);
+}
+
+
+/* ===================================
+   NAMES
+=================================== */
+
+.details-names{
+
+    font-family:
+        "Bodoni Moda",
+        serif;
+
+    font-size:
+        clamp(
+            25px,
+            13.7cqw,
+            42px
+        );
+
+    color:#726351;
+
+    line-height:1.15;
+
+    white-space:nowrap;
+}
+
+.details-and{
+
+    font-family:
+        "Pinyon Script",
+        cursive;
+
+    color:#b28a5d;
+
+    font-size:1.1em;
+
+    margin:0 .40em;
+}
+
+
+/* ===================================
+   DIVIDER
+=================================== */
+
+.divider{
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    gap:9px;
+
+    width:62%;
+
+    margin-top:10px;
+}
+
+.divider span{
+
+    flex:1;
+
+    height:1.2px;
+}
+
+.divider span:first-child{
+
+    background:
+        linear-gradient(
+            90deg,
+            transparent,
+            #b28a5d
+        );
+
+    opacity:.85;
+}
+
+.divider span:last-child{
+
+    background:
+        linear-gradient(
+            270deg,
+            transparent,
+            #b28a5d
+        );
+
+    opacity:.85;
+}
+
+.divider i{
+
+    font-style:normal;
+
+    color:#b28a5d;
+
+    font-size:13px;
+}
+
+
+/* ===================================
+   VERSE
+=================================== */
+
+.verse{
+
+    width:100%;
+
+    max-width:380px;
+
+    margin-top:18px;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-size:
+        clamp(
+            20px,
+            5.5cqw,
+            30px
+        );
+
+    line-height:1.72;
+
+    color:#554a3d;
+}
+
+
+/* ===================================
+   FAMILIES TITLE
+=================================== */
+
+.families-title{
+
+    margin-top:5px;
+
+    margin-bottom:8px;
+
+    color:#9b8360;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    font-weight:500;
+
+    font-size:
+        clamp(
+            10px,
+            2.9cqw,
+            14px
+        );
+
+    letter-spacing:.34em;
+
+    text-transform:uppercase;
+}
+
+
+/* ===================================
+   PARENTS
+=================================== */
+
+.parents-row{
+
+    display:flex;
+
+    align-items:flex-start;
+
+    justify-content:center;
+
+    gap:12px;
+
+    width:100%;
+}
+
+.parent{
+
+    flex:1;
+
+    min-width:0;
+
+    display:flex;
+
+    flex-direction:column;
+
+    align-items:center;
+
+    font-family:
+        "Cormorant Garamond",
+        serif;
+
+    color:#5c4f40;
+
+    font-size:
+        clamp(
+            13px,
+            3.8cqw,
+            18px
+        );
+
+    line-height:1.35;
+}
+
+.parent-divider{
+
+    width:1px;
+
+    align-self:stretch;
+
+    opacity:.7;
+
+    background:
+        linear-gradient(
+            180deg,
+            transparent,
+            #9b8360,
+            transparent
+        );
+}
+
+
+/* ===================================
+   SCENE
+=================================== */
+
+.scene{
+
+    width:100%;
+
+    min-height:100dvh;
+
+    scroll-snap-align:start;
+
+    scroll-snap-stop:always;
+}
+
+
+/* ===================================
+   MOBILE
+=================================== */
+
+@media (max-width:500px){
+
+    .details-shell{
+
+        padding-left:11%;
+
+        padding-right:11%;
+
+        padding-top:24px;
+
+        padding-bottom:64px;
+    }
+
+    /* NAMES */
+    .details-names{
+
+        font-size:32px;
+    }
+
+    /* AND */
+    .details-and{
+
+        font-size:1.35em;
+    }
+
+    /* DIVIDER */
+    .divider{
+
+        width:70%;
+    }
+
+    .divider i{
+
+        font-size:12px;
+    }
+
+    /* VERSE */
+    .verse{
+
+        font-size:22px;
+
+        margin-top:1px;
+    }
+
+    /* FAMILIES */
+    .families-title{
+
+        margin-top:2px;
+
+        font-size:12px;
+    }
+
+    /* PARENTS */
+    .parent{
+
+        font-size:15px;
+    }
+}
